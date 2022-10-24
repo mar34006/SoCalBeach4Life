@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop= "70dp"
+        android:textSize = "30dp"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:id="@+id/rating_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize = "15dp"
+        android:text = "How would you rate the beach out of 1-5?"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/name"/>
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize = "30dp"
+        android:text = "1"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/rating_desc"/>
+
+    <Button
+        android:id="@+id/minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf= "@+id/rating"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/rating_desc"
+        android:layout_marginRight="20dp"
+        android:padding="5dp"
+        android:text="-"
+        android:onClick="onClickMinus" />
+
+    <Button
+        android:id="@+id/plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf= "@+id/rating"
+        android:layout_below="@+id/rating_desc"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop = "20dp"
+        android:padding="5dp"
+        android:text="+"
+        android:onClick="onClickPlus" />
+
+    <TextView
+        android:id="@+id/review_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize = "15dp"
+        android:text = "Leave your review here (optional)"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/rating"/>
+
+    <EditText
+        android:id="@+id/inputText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:layout_below= "@+id/review_desc"
+        android:layout_marginTop="10dp"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="343dp"
+        android:layout_centerHorizontal="true" />
+
+
+    <Button
+        android:id="@+id/leave_rev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:text="Leave review"
+        android:onClick="onClickLeaveRev" />
+
+    <TextView
+        android:id="@+id/anon_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize = "15dp"
+        android:layout_below= "@+id/inputText"
+        android:text = "Leave an anonymous review?"
+        android:layout_marginTop="20dp"
+        android:layout_centerVertical="true"/>
+
+    <Button
+        android:id="@+id/anon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:text="Yes"
+        android:layout_below= "@+id/anon_desc"
+        android:layout_marginTop="10dp"
+        android:onClick="onClickAnon" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="Cancel"
+        android:onClick="onClickBack" />
+
+</RelativeLayout>

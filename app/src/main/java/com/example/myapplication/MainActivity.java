@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseDatabase root;
     DatabaseReference reference;
+
     String beach_name;
 
     @Override

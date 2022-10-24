@@ -100,7 +100,8 @@ public class LeaveReviewActivity extends AppCompatActivity {
 
         DatabaseReference review = reference.push();
         review.child("Rating").setValue(rating);
-        review.child("Review").setValue(inputText.getText().toString());
+        if (inputText == null){review.child("Review").setValue("");}
+        else{ review.child("Review").setValue(inputText.getText().toString());}
         review.child("Anonymous").setValue(anonymous);
 
 

@@ -18,12 +18,21 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+class Restaurant{
+    String name;
+    double coords[] = new double[2];
+    String menu_url;
+    double distance;
+}
+
 public class FindRestaurantsActivity extends AppCompatActivity {
 
 
     FirebaseDatabase root;
     DatabaseReference reference;
     String beach_name;
+    ArrayList<Restaurant> restaurants = new ArrayList<>();
+    Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +60,8 @@ public class FindRestaurantsActivity extends AppCompatActivity {
                 Log.w("SecondFragment", "Failed to read value.", error.toException());
             }
         });
-    }
 
-    public void onClickD1(View view){send_restaurants(1000);}
-    public void onClickD2(View view){send_restaurants(2000);}
-    public void onClickD3(View view){send_restaurants(2000);}
-
-    public void send_restaurants(Integer dist){
+        // restaurants
 
         root = FirebaseDatabase.getInstance();
         reference = root.getReference("beaches");
@@ -67,19 +71,15 @@ public class FindRestaurantsActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<String> keys = new ArrayList<String>();
                 for (DataSnapshot get_restaurant : dataSnapshot.getChildren()) {
-                    String distance = get_restaurant.child("distance").getValue().toString();
-                    if (Integer.parseInt(distance) <= dist) {
-                        keys.add(get_restaurant.getKey());
-                    }
+                    Restaurant restaurant = new Restaurant();
+                    restaurant.name = get_restaurant.child("name").getValue(String.class);
+                    restaurant.coords[0] = get_restaurant.child("coords").child("lat").getValue(double.class);
+                    restaurant.coords[1] = get_restaurant.child("coords").child("long").getValue(double.class);
+                    restaurant.menu_url = get_restaurant.child("menu").getValue(String.class);
+                    restaurant.distance = get_restaurant.child("distance").getValue(double.class);
+                    restaurants.add(restaurant);
                 }
-
-                //Intent intent = new Intent(context, MapActivity.class);
-                //intent.putExtra("beach_name", beach_name);
-                //intent.putExtra("distance", dist);
-                //intent.putExtra("keys", keys);
-                //startActivity(intent);
             }
             @Override
             public void onCancelled(DatabaseError error) {
@@ -87,6 +87,25 @@ public class FindRestaurantsActivity extends AppCompatActivity {
                 Log.w("SecondFragment", "Failed to read value.", error.toException());
             }
         });
+    }
+
+    public void onClickD1(View view){send_restaurants(1000);}
+    public void onClickD2(View view){send_restaurants(2000);}
+    public void onClickD3(View view){send_restaurants(2000);}
+
+    public void send_restaurants(Integer dist){
+
+        ArrayList<Restaurant> valid_restaurants = new ArrayList<>();
+        for(Restaurant restaurant: restaurants){
+            if (restaurant.distance <= dist){
+                valid_restaurants.add(restaurant);
+            }
+        }
+
+        // --GERARDO--
+        //Intent intent = new Intent(context, MapActivity.class);
+        //intent.putExtra("restaurants", valid_restaurants);
+        //startActivity(intent);
 
         this.finish();
 

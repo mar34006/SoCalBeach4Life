@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference reference;
 
     String beach_name;
+    final double[] lot1 = new double[2];
+    final double[] lot2 = new double[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,43 +37,30 @@ public class MainActivity extends AppCompatActivity {
         root = FirebaseDatabase.getInstance();
         reference = root.getReference("beaches");
         reference = reference.child(beach_name);
-        reference = reference.child("name");
 
-        TextView name = findViewById(R.id.beach_title);
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                name.setText(value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                name.setText("Error in retrieving your message!");
-                Log.w("SecondFragment", "Failed to read value.", error.toException());
-            }
-        });
-
-
-        // Description
-
-        reference = root.getReference("beaches");
-        reference = reference.child(beach_name);
-        reference = reference.child("description");
-
-        TextView description = findViewById(R.id.description);
+        TextView view_name = findViewById(R.id.beach_title);
+        TextView view_description = findViewById(R.id.description);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                description.setText(value);
+                String name = dataSnapshot.child("name").getValue(String.class);
+                view_name.setText(name);
+
+                String description = dataSnapshot.child("description").getValue(String.class);
+                view_description.setText(description);
+
+                lot1[0] = dataSnapshot.child("lots").child("lot1").child("lat").getValue(double.class);
+                lot1[1] = dataSnapshot.child("lots").child("lot1").child("long").getValue(double.class);
+
+                lot2[0] = dataSnapshot.child("lots").child("lot2").child("lat").getValue(double.class);
+                lot2[1] = dataSnapshot.child("lots").child("lot2").child("long").getValue(double.class);
+
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                description.setText("Error in retrieving your message!");
+                view_name.setText("Error in retrieving your message!");
                 Log.w("SecondFragment", "Failed to read value.", error.toException());
             }
         });
@@ -79,50 +68,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickRouteToBeach(View view){
 
-        final String[] lot1 = new String[1];
-        final String[] lot2 = new String[1];
-
-        reference = root.getReference("beaches");
-        reference = reference.child(beach_name).child("lots");
-        reference = reference.child("lot1");
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                lot1[0] = value;
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                lot1[0] = "Error in retrieving your longitude!";
-                Log.w("SecondFragment", "Failed to read value.", error.toException());
-            }
-        });
-
-        reference = root.getReference("beaches");
-        reference = reference.child(beach_name).child("lots");
-        reference = reference.child("lot2");
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                lot2[0] = value;
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                lot2[0] = "Error in retrieving your longitude!";
-                Log.w("SecondFragment", "Failed to read value.", error.toException());
-            }
-        });
+        // -- GERARDO --
 
         //Intent intent = new Intent(this, MapActivity.class);
-        //intent.putExtra("lot1", lot1[0]);
-        //intent.putExtra("lot2", lot2[0]);
+        //intent.putExtra("name", beach_name);
+        //intent.putExtra("lot1", lot1);
+        //intent.putExtra("lot2", lot2);
         //startActivity(intent);
-        //this.finish();
+        this.finish();
 
     }
 
@@ -139,3 +92,48 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
 }
+
+/*
+
+---GERARDO---
+
+class Beach{
+    String name;
+    double[] lot1 = new double[2];
+    double[] lot2 = new double[2];
+}
+
+INCLUDE THIS IN YOUR onCreate FUNCTION TO CREATE A LIST OF ALL BEACH NAMES + LOCATIONS
+
+root = FirebaseDatabase.getInstance();
+reference = root.getReference("beaches");
+
+Context context = this;
+ArrayList<Beach> beaches = new ArrayList<>();
+
+reference.addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+
+        for (DataSnapshot get_beach : dataSnapshot.getChildren()) {
+
+            Beach beach = new Beach();
+
+            beach.name = get_review.child("name").getValue().toString();
+
+            beach.lot1[0] = get_review.child("lots").child("lot1").child("lat").getValue(double.class);
+            beach.lot1[1] = get_review.child("lots").child("lot1").child("long").getValue(double.class);
+
+            beach.lot2[0] = get_review.child("lots").child("lot2").child("lat").getValue(double.class);
+            beach.lot2[1] = get_review.child("lots").child("lot2").child("long").getValue(double.class);
+
+            beaches.add(beach);
+        }
+    }
+    @Override
+    public void onCancelled(DatabaseError error) {
+        Log.w("Failed to read values.", error.toException());
+    }
+});
+
+ */

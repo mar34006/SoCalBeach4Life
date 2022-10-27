@@ -37,9 +37,7 @@ public class ReadReviewActivity extends AppCompatActivity {
         beach_name = intent.getStringExtra("beach_name");
 
         root = FirebaseDatabase.getInstance();
-        reference = root.getReference("beaches");
-        reference = reference.child(beach_name);
-        reference = reference.child("name");
+        reference = root.getReference("beaches").child(beach_name).child("name");
 
         TextView name = findViewById(R.id.name);
 
@@ -61,15 +59,14 @@ public class ReadReviewActivity extends AppCompatActivity {
         RelativeLayout containerLayout = (RelativeLayout) findViewById(R.id.container);
 
         root = FirebaseDatabase.getInstance();
-        reference = root.getReference("beaches");
-        reference = reference.child(beach_name);
-        reference = reference.child("reviews");
+        reference = root.getReference("beaches").child(beach_name).child("reviews");
 
         Context context = this;
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 int i = 0;
                 if(explicit_call) {
                     explicit_call = false;

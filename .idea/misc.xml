@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_read_review.xml" value="0.225" />
         <entry key="app/src/main/res/layout/activity_review.xml" value="0.2390625" />
+        <entry key="app/src/main/res/layout/activity_view_restaurant.xml" value="0.2390625" />
       </map>
     </option>
   </component>

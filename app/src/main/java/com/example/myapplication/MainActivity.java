@@ -91,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         this.finish();
     }
+
+    public void onClickBack(View view){
+        this.finish();
+    }
 }
 
 /*

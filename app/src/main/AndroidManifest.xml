@@ -14,6 +14,9 @@
         android:theme="@style/Theme.SoCalBeach4LifeReal"
         tools:targetApi="31">
         <activity
+            android:name=".ViewRestaurantActivity"
+            android:exported="false" />
+        <activity
             android:name=".FindRestaurantsActivity"
             android:exported="false" />
         <activity

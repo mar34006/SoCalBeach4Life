@@ -16,13 +16,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-class Restaurant{
+class Restaurant implements Serializable
+{
     String name;
     double coords[] = new double[2];
     String menu_url;
     double distance;
+}
+
+class RestaurantPacks implements Serializable
+{
+    Restaurant restaurants[];
+    int distance;
 }
 
 public class FindRestaurantsActivity extends AppCompatActivity {
@@ -103,9 +111,19 @@ public class FindRestaurantsActivity extends AppCompatActivity {
         }
 
         // --GERARDO--
-        //Intent intent = new Intent(context, MapActivity.class);
-        //intent.putExtra("restaurants", valid_restaurants);
-        //startActivity(intent);
+        Intent intent = new Intent(context, MapsActivity.class);
+        RestaurantPacks p = new RestaurantPacks();
+        Restaurant r[] = new Restaurant[valid_restaurants.size()];
+        for(int i =  0; i < valid_restaurants.size(); i++)
+        {
+            r[i] = valid_restaurants.get(i);
+        }
+        p.restaurants = r;
+        p.distance = dist;
+        intent.putExtra("mode", "restaurants");
+        intent.putExtra("name", beach_name);
+        intent.putExtra("restaurants", p);
+        startActivity(intent);
 
         this.finish();
 

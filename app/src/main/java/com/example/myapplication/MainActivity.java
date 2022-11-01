@@ -70,11 +70,12 @@ public class MainActivity extends AppCompatActivity {
 
         // -- GERARDO --
 
-        //Intent intent = new Intent(this, MapActivity.class);
-        //intent.putExtra("name", beach_name);
-        //intent.putExtra("lot1", lot1);
-        //intent.putExtra("lot2", lot2);
-        //startActivity(intent);
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("mode", "beach lots");
+        intent.putExtra("name", beach_name);
+        intent.putExtra("lot1", lot1);
+        intent.putExtra("lot2", lot2);
+        startActivity(intent);
         this.finish();
 
     }

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
@@ -126,7 +127,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         destMarker = mMap.addMarker(ops);
     }
 
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -139,7 +139,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         Log.i("map", "map ready");
-        // Add a marker in Sydney and move the camera
         LatLng home = new LatLng(34.0168108, -118.2717179);
         LatLng bch_dst = new LatLng(34.0356343,-118.538096);
         LatLng dest, dest2;
@@ -150,10 +149,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             originMarker = mMap.addMarker(new MarkerOptions().position(home).title("Home"));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(20.0f));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bch_dst, 10.0f));
-            drawPathFromAtoB(home.latitude, home.longitude, dest.latitude, dest.longitude);
-            destMarker = mMap.addMarker(new MarkerOptions().position(dest).title(String.format("%s:Lot %d (%sm)", this.beach_name, 1, duration)));
-            //drawPathFromAtoB(home.latitude, home.longitude, dest2.latitude, dest2.longitude);
-            //destMarker2 = mMap.addMarker(new MarkerOptions().position(dest2).title(String.format("%s:Lot %d (%sm)", this.beach_name, 2, duration)));
+            MarkerOptions option1 = new MarkerOptions().position(dest2).title("Lot 1");
+            MarkerOptions option2 = new MarkerOptions().position(dest2).title("Lot 2");
+            extraMarkers.add(mMap.addMarker(option1));
+            extraMarkers.add(mMap.addMarker(option2));
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                public boolean onMarkerClick(Marker m)
+                {
+                    if(mode != Mode.LOTS)
+                        return false;
+                    if(m.getPosition() == originMarker.getPosition())
+                        return false;
+                    LatLng home = originMarker.getPosition();
+                    LatLng dest = m.getPosition();
+                    drawPathFromAtoB(home.latitude, home.longitude, dest.latitude, dest.longitude);
+        /*if(dest != null)
+            dest.remove();
+         */
+                    if(duration != null && !(m.getTitle().contains(" mins") || m.getTitle().contains(" min")))
+                    {
+                        m.setTitle(m.getTitle() + ": " + duration + " min.");
+                    }
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(dest));
+                    return false;
+                }
+            });
         }
         else
         {
@@ -164,11 +185,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             for (Restaurant r: availableRestaurants.restaurants)
             {
                 Log.i("INFO", String.format("%s, %f", r.name, r.distance ));
+                MarkerOptions option = new MarkerOptions();
                 LatLng d =  new LatLng(r.coords[0], r.coords[1]);
+                option.position(d);
                 String name = r.name;
                 double distance = r.distance;
-                Marker m = mMap.addMarker(new MarkerOptions().position(d).title(String.format("%s (%f ft)", name, distance)));
-                extraMarkers.add(m);
+                option.title(String.format("%s (%d ft)", name, (long)distance));
+                option.snippet("Lot close to " + beach_name);
+                extraMarkers.add(mMap.addMarker(option));
             }
             /*Circle circle = mMap.addCircle(new CircleOptions()
                 .center(new LatLng(-33.87365, 151.20689))

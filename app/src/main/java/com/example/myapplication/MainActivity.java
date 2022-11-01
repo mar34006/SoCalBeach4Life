@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("name", beach_name);
         intent.putExtra("lot1", lot1);
         intent.putExtra("lot2", lot2);
+        Log.i("LOG DATA", String.format("lot1: (%f, %f)", lot1[0], lot1[1]));
+        Log.i("LOG DATA", String.format("lot2: (%f, %f)", lot2[0], lot2[1]));
         startActivity(intent);
         this.finish();
 

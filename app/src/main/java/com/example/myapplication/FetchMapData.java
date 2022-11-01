@@ -43,7 +43,7 @@ public class FetchMapData extends AsyncTask<LatLng, String, String> {
             while((line = br.readLine()) != null)
                 sb.append(line);
             data = sb.toString();
-            //Log.i("Map", String.format("Data is %s", data));
+            Log.i("Map", String.format("Data is %s", data));
             br.close();
         } catch (Exception e)
         {
@@ -63,7 +63,7 @@ public class FetchMapData extends AsyncTask<LatLng, String, String> {
     protected void onPostExecute(String res)
     {
         super.onPostExecute(res);
-        //Log.i("Data", res);
+        // send data to map parser
         new ParseMapData(ctxt, destination).execute(res);
     }
 

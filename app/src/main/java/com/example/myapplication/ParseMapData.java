@@ -32,7 +32,8 @@ public class ParseMapData extends AsyncTask<String, Integer, List<List<HashMap<S
     }
 
     @Override
-    protected void onPreExecute(){
+    protected void onPreExecute()
+    {
         super.onPreExecute();
     }
 
@@ -43,9 +44,7 @@ public class ParseMapData extends AsyncTask<String, Integer, List<List<HashMap<S
         List<List<HashMap<String, String>>> routes = null;
         try {
             j = new JSONObject(data[0]);
-            //Log.i("Background", j.toString());
-            routes = parseRoutes(j);
-            //Log.i("Routes", routes.toString());
+            routes = parseRoutes(j); // grab routes from json data
         }
         catch (JSONException e)
         {
@@ -63,85 +62,75 @@ public class ParseMapData extends AsyncTask<String, Integer, List<List<HashMap<S
     private List<List<HashMap<String, String>>> parseRoutes(JSONObject json)
     {
         List<List<HashMap<String, String>>> mroutes = new ArrayList<>();
-        JSONArray jRoutes;
-        JSONArray jLegs;
-        JSONArray jSteps;
-        try {
-            jRoutes = json.getJSONArray("routes");
-            for (int i = 0; i < jRoutes.length(); i++) {
-                jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
+        JSONArray routes, legs, steps;
+        try
+        {
+            routes = json.getJSONArray("routes");
+            int routes_len = routes.length();
+            for (int r = 0; r < routes_len; r++)
+            {
+                legs = ((JSONObject)routes.get(r)).getJSONArray("legs");
+                int legs_len = legs.length();
                 List path = new ArrayList<>();
-                for (int j = 0; j < jLegs.length(); j++) {
-                    jSteps = ((JSONObject) jLegs.get(j)).getJSONArray("steps");
-                    JSONObject jDuration = ((JSONObject) jLegs.get(j)).getJSONObject("duration");
-                    duration = jDuration.getString("text");
-                    for (int k = 0; k < jSteps.length(); k++) {
-                        String polyline = "";
-                        polyline = (String) ((JSONObject) ((JSONObject) jSteps.get(k)).get("polyline")).get("points");
+                for (int l = 0; l < legs_len; l++)
+                {
+                    steps = ((JSONObject)legs.get(l)).getJSONArray("steps");
+                    int steps_len = steps.length();
+                    duration = ((JSONObject)legs.get(l)).getJSONObject("duration").getString("text");
+                    for (int s = 0; s < steps_len; s++)
+                    {
+                        String polyline = (String) ((JSONObject) ((JSONObject) steps.get(s)).get("polyline")).get("points");
                         List<LatLng> list = PolyUtil.decode(polyline);
-                        for (int l = 0; l < list.size(); l++) {
+                        int list_len = list.size();
+                        for (int i = 0; i < list_len; i++)
+                        {
                             HashMap<String, String> hm = new HashMap<>();
-                            hm.put("lat", Double.toString((list.get(l)).latitude));
-                            hm.put("lng", Double.toString((list.get(l)).longitude));
+                            hm.put("lat", Double.toString((list.get(i)).latitude));
+                            hm.put("lng", Double.toString((list.get(i)).longitude));
                             path.add(hm);
                         }
                     }
                     mroutes.add(path);
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             Log.e("Parse", "Failed to read JSON data.");
             e.printStackTrace();
         }
-        Log.i("Parse", String.format("duration is %s", duration));
         return mroutes;
     }
 
-    public void parse()
-    {
-        JSONObject j;
-        try {
-            //j = new JSONObject(data);
-            //routes = parseRoutes(j);
-        } catch (Exception e)
-        {
-            Log.e("Parser", "Couldn't parse data.");
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void onPostExecute(List<List<HashMap<String, String>>> routes)
     {
-        ArrayList<LatLng> points;
-        PolylineOptions lineOptions = null;
+        ArrayList<LatLng> pts;
+        PolylineOptions l = null;
         List<List<HashMap<String, String>>> result = routes;
-        // Traversing through all the routes
-        for (int i = 0; i < result.size(); i++) {
-            points = new ArrayList<>();
-            lineOptions = new PolylineOptions();
-            // Fetching i-th route
+        for (int i = 0; i < result.size(); i++)
+        {
+            pts = new ArrayList<>();
+            l = new PolylineOptions();
             List<HashMap<String, String>> path = result.get(i);
-            // Fetching all the points in i-th route
-            for (int j = 0; j < path.size(); j++) {
-                HashMap<String, String> point = path.get(j);
-                double lat = Double.parseDouble(point.get("lat"));
-                double lng = Double.parseDouble(point.get("lng"));
-                LatLng position = new LatLng(lat, lng);
-                points.add(position);
+            int path_size = path.size();
+            for (int j = 0; j < path_size; j++)
+            {
+                HashMap<String, String> pt = path.get(j);
+                double lat = Double.parseDouble(pt.get("lat"));
+                double lng = Double.parseDouble(pt.get("lng"));
+                LatLng pos = new LatLng(lat, lng);
+                pts.add(pos);
             }
-            // Adding all the points in the route to LineOptions
-            lineOptions.addAll(points);
-            lineOptions.width(20);
-            lineOptions.color(Color.BLUE);
+            for(int p = 0; p < pts.size(); p++)
+            {
+                l.add(pts.get(p));
+            }
+            l.width(15);
+            l.color(Color.rgb(180, 0, 110));
         }
-        if(lineOptions != null)
-            ctxt.setPolyLine(lineOptions);
-        MarkerOptions options = null;
-        if(duration != null)
-            options = new MarkerOptions().position(dest).title(String.format("Destination (%s)", duration));
-        else
-            options = new MarkerOptions().position(dest).title("Destination");
-        ctxt.addDestinationInformation(options, duration);
+        if(l != null)
+            ctxt.setPolyLine(l);
+        ctxt.addDestinationInformation(duration);
     }
 }

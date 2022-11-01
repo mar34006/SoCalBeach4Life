@@ -108,6 +108,7 @@ public class FindRestaurantsActivity extends AppCompatActivity {
             if (restaurant.distance <= dist){
                 valid_restaurants.add(restaurant);
             }
+            Log.i("LOG DATA", String.format("restaurant name: %s", restaurant.name));
         }
 
         // --GERARDO--

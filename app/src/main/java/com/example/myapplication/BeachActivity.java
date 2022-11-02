@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +41,15 @@ public class BeachActivity extends AppCompatActivity {
 
         TextView view_name = findViewById(R.id.beach_title);
         TextView view_description = findViewById(R.id.description);
+
+        Button toProfileBtn = (Button)findViewById(R.id.profilePage);
+
+        toProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BeachActivity.this, ProfileActivity.class));
+            }
+        });
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -98,6 +108,7 @@ public class BeachActivity extends AppCompatActivity {
     public void onClickBack(View view){
         this.finish();
     }
+
 }
 
 /*

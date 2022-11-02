@@ -89,9 +89,10 @@
         android:backgroundTint="#0ED6B9"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/updateInfo"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
 
         />
 
@@ -104,11 +105,9 @@
         android:text="Update"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="@id/signOut"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address"
 
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

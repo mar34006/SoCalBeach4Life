@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button update;
 
     String firstName, lastName, email, address;
-    TextView firstNameTextView, lastNameTextView, emailTextView, addressTextView;
+    TextView firstNameTextView, lastNameTextView, emailTextView, addressTextView, banner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,16 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         update = (Button) findViewById(R.id.updateInfo);
+
+        // Clicking on the banner will redirect back to the BeachActivity page
+        banner = (TextView)findViewById(R.id.banner);
+        banner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // When user clicks on logout, it redirects them to the main activity
+                startActivity(new Intent(ProfileActivity.this, com.example.myapplication.BeachActivity.class));
+            }
+        });
 
         logout = (Button) findViewById(R.id.signOut);
         logout.setOnClickListener(new View.OnClickListener() {

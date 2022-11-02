@@ -4,6 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Gee/AndroidStudioProjects/SoCalBeach4LifeReal/app/src/main/res/layout/activity_maps.xml" value="0.128345498783455" />
+        <entry key="..\:/Users/jon/Desktop/SoCalBeach4LifeReal/app/src/main/res/layout/activity_beach.xml" value="0.15526849037487336" />
+        <entry key="..\:/Users/jon/Desktop/SoCalBeach4LifeReal/app/src/main/res/layout/activity_find_restaurants.xml" value="0.2595108695652174" />
+        <entry key="..\:/Users/jon/Desktop/SoCalBeach4LifeReal/app/src/main/res/layout/activity_forgot_password.xml" value="0.1" />
+        <entry key="..\:/Users/jon/Desktop/SoCalBeach4LifeReal/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/jon/Desktop/SoCalBeach4LifeReal/app/src/main/res/layout/activity_profile.xml" value="0.1" />
+        <entry key="..\:/Users/jon/Desktop/SoCalBeach4LifeReal/app/src/main/res/layout/activity_register_user.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_find_restaurants.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_leave_review.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />

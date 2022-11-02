@@ -1,146 +1,121 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    FirebaseDatabase root;
-    DatabaseReference reference;
+    private TextView register, forgotPassword;
+    private EditText editTextEmail, editTextPassword;
+    private Button signIn;
 
-    String beach_name;
-    final double[] lot1 = new double[2];
-    final double[] lot2 = new double[2];
+    private FirebaseAuth mAuth;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Intent intent = getIntent();
-        // beach_name = intent.getStringExtra("beach_name");
-        beach_name = "will rogers";
+        mAuth = FirebaseAuth.getInstance();
 
-        // Name
+        register = (TextView) findViewById(R.id.register);
+        register.setOnClickListener(this);
 
-        root = FirebaseDatabase.getInstance();
-        reference = root.getReference("beaches");
-        reference = reference.child(beach_name);
+        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
+        forgotPassword.setOnClickListener(this);
 
-        TextView view_name = findViewById(R.id.beach_title);
-        TextView view_description = findViewById(R.id.description);
+        signIn = (Button)findViewById(R.id.signIn);
+        signIn.setOnClickListener(this);
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String name = dataSnapshot.child("name").getValue(String.class);
-                view_name.setText(name);
+        editTextEmail = (EditText)findViewById(R.id.email);
+        editTextPassword=(EditText)findViewById(R.id.password);
 
-                String description = dataSnapshot.child("description").getValue(String.class);
-                view_description.setText(description);
-
-                lot1[0] = dataSnapshot.child("lots").child("lot1").child("lat").getValue(double.class);
-                lot1[1] = dataSnapshot.child("lots").child("lot1").child("long").getValue(double.class);
-
-                lot2[0] = dataSnapshot.child("lots").child("lot2").child("lat").getValue(double.class);
-                lot2[1] = dataSnapshot.child("lots").child("lot2").child("long").getValue(double.class);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                view_name.setText("Error in retrieving your message!");
-                Log.w("SecondFragment", "Failed to read value.", error.toException());
-            }
-        });
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
-    public void onClickRouteToBeach(View view){
-
-        // -- GERARDO --
-
-        Intent intent = new Intent(this, MapsActivity.class);
-        intent.putExtra("mode", "beach lots");
-        intent.putExtra("name", beach_name);
-        intent.putExtra("lot1", lot1);
-        intent.putExtra("lot2", lot2);
-        Log.i("LOG DATA", String.format("lot1: (%f, %f)", lot1[0], lot1[1]));
-        Log.i("LOG DATA", String.format("lot2: (%f, %f)", lot2[0], lot2[1]));
-        startActivity(intent);
-        this.finish();
-
-    }
-
-    public void onClickReadReview(View view){
-        Intent intent = new Intent(this, ReadReviewActivity.class);
-        intent.putExtra("beach_name", beach_name);
-        startActivity(intent);
-    }
-
-    public void onClickFindRestaurant(View view){
-        Intent intent = new Intent(this, FindRestaurantsActivity.class);
-        intent.putExtra("beach_name", beach_name);
-        startActivity(intent);
-        this.finish();
-    }
-
-    public void onClickBack(View view){
-        this.finish();
-    }
-}
-
-/*
-
----GERARDO---
-
-class Beach{
-    String name;
-    double[] lot1 = new double[2];
-    double[] lot2 = new double[2];
-}
-
-INCLUDE THIS IN YOUR onCreate FUNCTION TO CREATE A LIST OF ALL BEACH NAMES + LOCATIONS
-
-root = FirebaseDatabase.getInstance();
-reference = root.getReference("beaches");
-
-Context context = this;
-ArrayList<Beach> beaches = new ArrayList<>();
-
-reference.addValueEventListener(new ValueEventListener() {
     @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-
-        for (DataSnapshot get_beach : dataSnapshot.getChildren()) {
-
-            Beach beach = new Beach();
-
-            beach.name = get_review.child("name").getValue().toString();
-
-            beach.lot1[0] = get_review.child("lots").child("lot1").child("lat").getValue(double.class);
-            beach.lot1[1] = get_review.child("lots").child("lot1").child("long").getValue(double.class);
-
-            beach.lot2[0] = get_review.child("lots").child("lot2").child("lat").getValue(double.class);
-            beach.lot2[1] = get_review.child("lots").child("lot2").child("long").getValue(double.class);
-
-            beaches.add(beach);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            // What to do when the user presses any of the three buttons
+            case R.id.register:
+                startActivity(new Intent(this, RegisterUser.class));
+                break;
+            case R.id.signIn:
+                userLogin();
+                break;
+            case R.id.forgotPassword:;
+                startActivity(new Intent(this, com.example.myapplication.ForgotPassword.class));
+                break;
         }
     }
-    @Override
-    public void onCancelled(DatabaseError error) {
-        Log.w("Failed to read values.", error.toException());
-    }
-});
 
- */
+    // Login using fireBase
+    private void userLogin() {
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        boolean validLogin = validate(email, password);
+        if(validLogin) {
+            progressBar.setVisibility(View.VISIBLE);
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()) {
+                        //redirect to user profile
+                        startActivity(new Intent(MainActivity.this, BeachActivity.class));
+                    }
+                    else {
+                        Toast.makeText(MainActivity.this, "Failed to login, please check your credentials.", Toast.LENGTH_LONG).show();
+                    }
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+        }
+    }
+
+    // Validate email, password, and password length
+    private boolean validate(String email, String password) {
+
+        if(email.isEmpty()) {
+            editTextEmail.setError("Email is required");
+            editTextEmail.requestFocus();
+            return false;
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("Please enter a valid email");
+            editTextEmail.requestFocus();
+            return false;
+        }
+        if(password.isEmpty()) {
+            editTextPassword.setError("Password is required");
+            editTextPassword.requestFocus();
+            return false;
+        }
+        if(password.length() < 6) {
+            editTextPassword.setError("Password should contain a minimum of 6 characters.");
+            editTextPassword.requestFocus();
+            return false;
+        }
+
+        return true;
+
+    }
+
+}

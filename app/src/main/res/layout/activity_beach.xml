@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/beach_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/back"
+        android:layout_centerHorizontal="true"
+        android:textSize = "30dp"
+        android:layout_marginTop="20dp" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/beach_title"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize = "20dp"
+        android:padding="5dp" />
+
+    <Button
+        android:id="@+id/route"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/read_review"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:text="Route to beach"
+        android:onClick="onClickRouteToBeach"
+        />
+
+    <Button
+        android:id="@+id/read_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:text="Reviews"
+        android:layout_above="@+id/find_restaurants"
+        android:onClick="onClickReadReview"
+        />
+
+    <Button
+        android:id="@+id/find_restaurants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:text="Find nearby restaurants"
+        android:onClick="onClickFindRestaurant"
+        />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text="Back"
+        android:onClick="onClickBack"
+        />
+
+
+
+</RelativeLayout>

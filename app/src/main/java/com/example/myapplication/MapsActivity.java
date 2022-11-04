@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -181,5 +182,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 addLocationMarker(r.coords[0], r.coords[1], title);
             }
         }
+    }
+
+    public void onClickBack(View v)
+    {
+        this.finish();
     }
 }

@@ -38,6 +38,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Mode mode;
     String beach_name;
     LatLng lot1, lot2;
+    LatLng beach_dest;
     RestaurantPacks availableRestaurants;
 
 
@@ -57,6 +58,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = getIntent();
         String mode = intent.getStringExtra("mode");
         this.beach_name = intent.getStringExtra("name");
+        double loc[] = intent.getDoubleArrayExtra("loc");
+        this.beach_dest = new LatLng(loc[0], loc[1]);
         if(mode.equals("beach lots"))
         {
             this.mode = Mode.LOTS;
@@ -131,14 +134,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         Log.i("map", "map ready");
         LatLng home = new LatLng(34.0168108, -118.2717179);
-        LatLng bch_dst = new LatLng(34.0356343,-118.538096);
         LatLng dest1, dest2;
         if(mode == Mode.LOTS)
         {
             dest1 = lot1;
             dest2 = lot2;
             originMarker = mMap.addMarker(new MarkerOptions().position(home).title("Home"));
-            moveToLocationZoom(bch_dst.latitude, bch_dst.longitude, 15.0f);
+            moveToLocationZoom(beach_dest.latitude, beach_dest.longitude, 15.0f);
             addLocationMarker(dest1.latitude, dest1.longitude, "Lot 1");
             addLocationMarker(dest2.latitude, dest2.longitude, "Lot 2");
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -159,8 +161,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         else
         {
-            moveToLocationZoom(bch_dst.latitude, bch_dst.longitude, 13.0f);
-            drawCircleAt(bch_dst.latitude, bch_dst.longitude, (int)(availableRestaurants.distance + 800));
+            moveToLocationZoom(beach_dest.latitude, beach_dest.longitude, 16.0f);
+            drawCircleAt(beach_dest.latitude, beach_dest.longitude, (int)(availableRestaurants.distance *0.31));
             Log.i("INFO", String.format("distance: %d", availableRestaurants.distance));
             for (Restaurant r: availableRestaurants.restaurants)
             {

@@ -41,6 +41,7 @@ public class FindRestaurantsActivity extends AppCompatActivity {
     String beach_name;
     ArrayList<Restaurant> restaurants = new ArrayList<>();
     Context context = this;
+    double loc[] = new double[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class FindRestaurantsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         beach_name = intent.getStringExtra("beach_name");
-
+        loc = intent.getDoubleArrayExtra("loc");
         TextView name = findViewById(R.id.name);
 
         root = FirebaseDatabase.getInstance();
@@ -82,6 +83,7 @@ public class FindRestaurantsActivity extends AppCompatActivity {
                 for (DataSnapshot get_restaurant : dataSnapshot.getChildren()) {
                     Restaurant restaurant = new Restaurant();
                     restaurant.name = get_restaurant.child("name").getValue(String.class);
+                    Log.i("REST_INFO", restaurant.name);
                     restaurant.coords[0] = get_restaurant.child("coords").child("lat").getValue(double.class);
                     restaurant.coords[1] = get_restaurant.child("coords").child("long").getValue(double.class);
                     restaurant.menu_url = get_restaurant.child("menu").getValue(String.class);
@@ -99,7 +101,7 @@ public class FindRestaurantsActivity extends AppCompatActivity {
 
     public void onClickD1(View view){send_restaurants(1000);}
     public void onClickD2(View view){send_restaurants(2000);}
-    public void onClickD3(View view){send_restaurants(2000);}
+    public void onClickD3(View view){send_restaurants(3000);}
 
     public void send_restaurants(Integer dist){
 
@@ -124,6 +126,7 @@ public class FindRestaurantsActivity extends AppCompatActivity {
         intent.putExtra("mode", "restaurants");
         intent.putExtra("name", beach_name);
         intent.putExtra("restaurants", p);
+        intent.putExtra("loc", loc);
         startActivity(intent);
 
         this.finish();

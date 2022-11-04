@@ -28,6 +28,7 @@ public class DisplayBeaches extends AppCompatActivity {
     DatabaseReference reference;
     ArrayList<Beach> beaches = new ArrayList<>();
     String user;
+    Boolean forceDataChange = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +40,25 @@ public class DisplayBeaches extends AppCompatActivity {
         user = intent.getStringExtra("user");
 
         root = FirebaseDatabase.getInstance();
-        reference = root.getReference("beaches");
+        reference = root.getReference();
+        reference = reference.child("beaches");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot get_beach : dataSnapshot.getChildren()) {
+                if (forceDataChange == true) {
+                    for (DataSnapshot get_beach : dataSnapshot.getChildren()) {
 
-                    Beach beach = new Beach();
-
-                    beach.name = get_beach.child("name").getValue().toString();
-
-                    beach.loc[0] = get_beach.child("lat").getValue(double.class);
-                    beach.loc[1] = get_beach.child("long").getValue(double.class);
-
-                    beaches.add(beach);
+                        Beach beach = new Beach();
+                        if (!get_beach.getValue().equals("Change")) {
+                            beach.name = get_beach.child("name").getValue().toString();
+                            beach.loc[0] = get_beach.child("lat").getValue(double.class);
+                            beach.loc[1] = get_beach.child("long").getValue(double.class);
+                            beaches.add(beach);
+                        }
+                    }
+                    forceDataChange = false;
                 }
             }
             @Override
@@ -62,5 +66,9 @@ public class DisplayBeaches extends AppCompatActivity {
                 Log.w("Failed to read values.", error.toException());
             }
         });
+
+        DatabaseReference change = reference.push();
+        change.setValue("Change");
+        change.removeValue();
     }
 }

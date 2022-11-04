@@ -31,11 +31,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-class Beach{
-    String name;
-    double[] loc = new double[2];
-}
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, SetPolygons {
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
@@ -72,58 +67,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Intent intent = getIntent();
         String mode = intent.getStringExtra("mode");
-
-        if (mode.equals("initialize")) {
-            this.mode = Mode.INITIALIZE;
-
-            root = FirebaseDatabase.getInstance();
-            reference = root.getReference("beaches");
-
-            Context context = this;
-            ArrayList<Beach> beaches = new ArrayList<>();
-
-            reference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    for (DataSnapshot get_beach : dataSnapshot.getChildren()) {
-
-                        Beach beach = new Beach();
-
-                        beach.name = get_beach.child("name").getValue().toString();
-
-                        beach.loc[0] = get_beach.child("lat").getValue(double.class);
-                        beach.loc[1] = get_beach.child("long").getValue(double.class);
-
-                        beaches.add(beach);
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    Log.w("Failed to read values.", error.toException());
-                }
-            });
-
-        } else {
-            this.beach_name = intent.getStringExtra("name");
-            double loc[] = intent.getDoubleArrayExtra("loc");
-            this.beach_dest = new LatLng(loc[0], loc[1]);
-            if (mode.equals("beach lots")) {
-                this.mode = Mode.LOTS;
-                double lot1loc[] = intent.getDoubleArrayExtra("lot1");
-                double lot2loc[] = intent.getDoubleArrayExtra("lot2");
-                this.lot1 = new LatLng(lot1loc[0], lot1loc[1]);
-                this.lot2 = new LatLng(lot2loc[0], lot2loc[1]);
-            } else // restaurants
-            {
-                this.mode = Mode.RESTAURANTS;
-                this.availableRestaurants = (RestaurantPacks) intent.getSerializableExtra("restaurants");
-            }
-            destMarker = null;
-            duration = null;
-            circles = new ArrayList<Circle>();
-            extraMarkers = new ArrayList<Marker>();
+        this.beach_name = intent.getStringExtra("name");
+        double loc[] = intent.getDoubleArrayExtra("loc");
+        this.beach_dest = new LatLng(loc[0], loc[1]);
+        if (mode.equals("beach lots")) {
+            this.mode = Mode.LOTS;
+            double lot1loc[] = intent.getDoubleArrayExtra("lot1");
+            double lot2loc[] = intent.getDoubleArrayExtra("lot2");
+            this.lot1 = new LatLng(lot1loc[0], lot1loc[1]);
+            this.lot2 = new LatLng(lot2loc[0], lot2loc[1]);
+        } else // restaurants
+        {
+            this.mode = Mode.RESTAURANTS;
+            this.availableRestaurants = (RestaurantPacks) intent.getSerializableExtra("restaurants");
         }
+        destMarker = null;
+        duration = null;
+        circles = new ArrayList<Circle>();
+        extraMarkers = new ArrayList<Marker>();
     }
 
     public void drawCircleAt(double lat, double lon, int radius_m)
@@ -182,27 +143,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.i("map", "map ready");
         LatLng home = new LatLng(34.0168108, -118.2717179);
         LatLng dest1, dest2;
-
-        if(mode == Mode.INITIALIZE){
-            moveToLocationZoom(home.latitude, home.longitude, 15.0f);
-            for(Beach beach: beaches){
-                addLocationMarker(beach.loc[0], beach.loc[1], beach.name);
-            }
-            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                public boolean onMarkerClick(Marker m)
-                {
-                    if(mode != Mode.INITIALIZE)
-                        return false;
-
-                    Intent intent = new Intent(MapsActivity.this, MainActivity.class);
-                    intent.putExtra("beach_name", m.getTitle());
-                    startActivity(intent);
-                    return false;
-                }
-            });
-        }
-
-        else if(mode == Mode.LOTS)
+        if(mode == Mode.LOTS)
         {
             dest1 = lot1;
             dest2 = lot2;

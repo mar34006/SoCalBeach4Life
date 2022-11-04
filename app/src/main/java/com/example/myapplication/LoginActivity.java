@@ -80,8 +80,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
                         //redirect to mainActivity
-                        Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
-                        intent.putExtra("mode", "initialize");
+                        Intent intent = new Intent(LoginActivity.this, DisplayBeaches.class);
+                        intent.putExtra("user", email);
                         startActivity(intent);
                     }
                     else {

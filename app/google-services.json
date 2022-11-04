@@ -1,10 +1,40 @@
 {
   "project_info": {
     "project_number": "255052076921",
+    "firebase_url": "https://socalbeach4lifereal-default-rtdb.firebaseio.com",
     "project_id": "socalbeach4lifereal",
     "storage_bucket": "socalbeach4lifereal.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255052076921:android:19d51a561f65b6c67901a8",
+        "android_client_info": {
+          "package_name": "com.example.auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255052076921-u1nohr34p3u0v5nrru5rfqj9ch1h6e44.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgqi5zy-w2fXLuUIQPoPlfiy3aPAnTjOY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255052076921-u1nohr34p3u0v5nrru5rfqj9ch1h6e44.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:255052076921:android:fd7b7221045eea7a7901a8",

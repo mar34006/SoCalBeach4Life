@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     String beach_name;
     final double[] lot1 = new double[2];
     final double[] lot2 = new double[2];
+    double[] loc = new double[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 lot2[0] = dataSnapshot.child("lots").child("lot2").child("lat").getValue(double.class);
                 lot2[1] = dataSnapshot.child("lots").child("lot2").child("long").getValue(double.class);
 
+                loc[0] = dataSnapshot.child("lat").getValue(Double.class);
+                loc[1] = dataSnapshot.child("long").getValue(Double.class);
             }
 
             @Override
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("lot2", lot2);
         Log.i("LOG DATA", String.format("lot1: (%f, %f)", lot1[0], lot1[1]));
         Log.i("LOG DATA", String.format("lot2: (%f, %f)", lot2[0], lot2[1]));
+        intent.putExtra("loc", loc);
         startActivity(intent);
         this.finish();
 
@@ -91,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickFindRestaurant(View view){
         Intent intent = new Intent(this, FindRestaurantsActivity.class);
         intent.putExtra("beach_name", beach_name);
+        intent.putExtra("loc", loc);
         startActivity(intent);
         this.finish();
     }

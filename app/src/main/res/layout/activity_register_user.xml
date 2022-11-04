@@ -16,6 +16,7 @@
         android:onClick="onClickBack"
         android:backgroundTint="#0ED6B9"
         android:padding="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:text="Back" />
 
     <TextView

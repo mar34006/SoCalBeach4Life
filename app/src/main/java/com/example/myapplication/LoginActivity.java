@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
-                        //redirect to user profile
+                        //redirect to mainActivity
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                     else {

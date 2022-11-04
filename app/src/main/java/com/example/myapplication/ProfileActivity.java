@@ -42,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // When user clicks on logout, it redirects them to the main activity
-                startActivity(new Intent(ProfileActivity.this, com.example.myapplication.BeachActivity.class));
+                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             }
         });
 
@@ -52,7 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // When user clicks on logout, it redirects them to the main activity
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(ProfileActivity.this, com.example.myapplication.MainActivity.class));
+                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
             }
         });
 

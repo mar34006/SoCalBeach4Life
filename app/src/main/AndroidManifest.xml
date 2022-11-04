@@ -38,7 +38,7 @@
             android:name=".RegisterUser"
             android:exported="false" />
         <activity
-            android:name=".BeachActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".MapsActivity"
@@ -46,7 +46,7 @@
             android:label="@string/title_activity_maps">
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

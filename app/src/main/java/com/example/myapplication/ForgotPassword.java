@@ -42,6 +42,10 @@ public class ForgotPassword extends AppCompatActivity {
         });
     }
 
+    public void onClickBack(View view){
+        this.finish();
+    }
+
     private void resetPassword() {
         String email = emailEditText.getText().toString().trim();
         if (email.isEmpty()) {

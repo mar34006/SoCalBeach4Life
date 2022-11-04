@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("LOG DATA", String.format("lot2: (%f, %f)", lot2[0], lot2[1]));
         intent.putExtra("loc", loc);
         startActivity(intent);
-        this.finish();
+        //this.finish();
 
     }
 
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("beach_name", beach_name);
         intent.putExtra("loc", loc);
         startActivity(intent);
-        this.finish();
+        //this.finish();
     }
 
     public void onClickBack(View view){

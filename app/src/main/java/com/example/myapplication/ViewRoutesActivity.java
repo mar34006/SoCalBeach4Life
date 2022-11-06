@@ -53,7 +53,7 @@ public class ViewRoutesActivity extends AppCompatActivity {
                             if(dataSnapshot.exists()) {
 
                                 TextView title = findViewById(R.id.title);
-                                title.setText("Routes");
+                                title.setText("Saved routes");
 
                                 int i = 0;
                                 for (DataSnapshot route : check_user.getChildren()){

@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#0ED6B9"
         android:onClick="onClickViewRoutes"
-        android:text="View routes"
+        android:text="View saved routes"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"

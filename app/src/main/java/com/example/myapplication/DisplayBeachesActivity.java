@@ -189,6 +189,7 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
     {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("beach_name", selected_beach);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 }

@@ -8,9 +8,11 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,6 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker destMarker;
     private List<Marker> extraMarkers;
     String duration;
-    enum Mode { RESTAURANTS, LOTS, INITIALIZE };
+    enum Mode { RESTAURANTS, LOTS };
     Mode mode;
     String beach_name;
     LatLng lot1, lot2;
@@ -52,6 +56,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     FirebaseDatabase root;
     DatabaseReference reference;
     ArrayList<Beach> beaches = new ArrayList<Beach>();
+
+    Boolean lotClicked = false;
+    Boolean restaurantClicked = false;
+    String selectedRestaurantName;
+    String user;
+    String user_reference;
+    Boolean routesExist = false;
+    Boolean forceDataChange = true;
 
 
     private static final int DEFAULT_STROKE = Color.argb(100, 220, 0, 0);
@@ -69,6 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Intent intent = getIntent();
         String mode = intent.getStringExtra("mode");
+        user = intent.getStringExtra("user");
         this.beach_name = intent.getStringExtra("name");
         double loc[] = intent.getDoubleArrayExtra("loc");
         this.beach_dest = new LatLng(loc[0], loc[1]);
@@ -78,10 +91,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             double lot2loc[] = intent.getDoubleArrayExtra("lot2");
             this.lot1 = new LatLng(lot1loc[0], lot1loc[1]);
             this.lot2 = new LatLng(lot2loc[0], lot2loc[1]);
+
+
+            // SAVE ROUTE DATA COLLECTION
+            root = FirebaseDatabase.getInstance();
+            reference = root.getReference("Users");
+
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    if(forceDataChange) {
+                        for (DataSnapshot check_user : dataSnapshot.getChildren()) {
+                            if (check_user.child("email").getValue().equals(user)) {
+                                user_reference = check_user.getKey();
+                                break;
+                            }
+                        }
+                        dataSnapshot = dataSnapshot.child(user_reference).child("routes");
+                        if(dataSnapshot.exists()) {routesExist = true;}
+                        forceDataChange = false;
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Log.w("SecondFragment", "Failed to read value.", error.toException());
+                }
+            });
+            DatabaseReference change = reference.push();
+            change.setValue("Change");
+            change.removeValue();
+
+
         } else // restaurants
         {
             this.mode = Mode.RESTAURANTS;
             this.availableRestaurants = (RestaurantPacks) intent.getSerializableExtra("restaurants");
+            TextView saveRoute = (TextView)findViewById(R.id.saveRoute);
+            saveRoute.setText("Select a restaurant");
         }
         destMarker = null;
         duration = null;
@@ -160,6 +207,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         return false;
                     if(m.getPosition() == originMarker.getPosition())
                         return false;
+
+                    TextView saveRoute = (TextView)findViewById(R.id.saveRoute);
+                    saveRoute.setText("Click to save route");
+                    lotClicked = true;
+
                     LatLng home = originMarker.getPosition();
                     LatLng dest = m.getPosition();
                     destMarker = m;
@@ -179,15 +231,75 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.i("INFO", String.format("%s, %f", r.name, r.distance ));
                 String name = r.name;
                 double distance = r.distance;
-                String title = String.format("%s (%d ft)", name, (long)distance);
+                //String title = String.format("%s (%d ft)", name, (long)distance);
+                String title = String.format(name);
                 Log.i("EXTRA REST INFO", String.format("%s (%f, %f)", r.name, r.coords[0], r.coords[1]));
                 this.addLocationMarker(r.coords[0], r.coords[1], title);
             }
+
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                public boolean onMarkerClick(Marker m)
+                {
+                    if(mode != Mode.RESTAURANTS)
+                        return false;
+                    if(m.getPosition() == beach_dest)
+                        return false;
+
+                    TextView saveRoute = (TextView)findViewById(R.id.saveRoute);
+                    saveRoute.setText("View menu");
+                    restaurantClicked = true;
+
+                    LatLng home = beach_dest;
+                    LatLng dest = m.getPosition();
+                    destMarker = m;
+                    drawPathFromAtoB(home.latitude, home.longitude, dest.latitude, dest.longitude);
+
+                    selectedRestaurantName = m.getTitle();
+
+
+                    return false;
+                }
+            });
         }
     }
 
     public void onClickBack(View v)
     {
         this.finish();
+    }
+
+    public void onClickSaveRoute(View view){
+        if (mode == Mode.LOTS) {
+            if (lotClicked) {
+
+                root = FirebaseDatabase.getInstance();
+                reference = root.getReference("Users").child(user_reference);
+
+                if (routesExist) {
+                    reference = reference.child("routes");
+                } else {
+                    reference.child("routes").setValue(true);
+                }
+
+                DatabaseReference route = reference.push();
+                route.child("Start").setValue("home");
+                route.child("Destination").setValue("destination");
+                route.child("Time").setValue("time");
+
+                TextView changeText = (TextView) view;
+                changeText.setText("Route saved!");
+            }
+        }
+        else if(mode == Mode.RESTAURANTS){
+            if(restaurantClicked){
+                for (Restaurant r: availableRestaurants.restaurants)
+                {
+                    if(selectedRestaurantName.equals(r.name)){
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(r.menu_url));
+                        startActivity(browserIntent);
+                    }
+                }
+            }
+        }
     }
 }

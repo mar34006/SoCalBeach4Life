@@ -22,6 +22,7 @@ public class LeaveReviewActivity extends AppCompatActivity {
     FirebaseDatabase root;
     DatabaseReference reference;
     String beach_name;
+    String user;
     EditText inputText;
     int rating = 1;
     Boolean anonymous = true;
@@ -35,6 +36,7 @@ public class LeaveReviewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         beach_name = intent.getStringExtra("beach_name");
+        user = intent.getStringExtra("user");
 
         root = FirebaseDatabase.getInstance();
         reference = root.getReference("beaches");
@@ -103,6 +105,7 @@ public class LeaveReviewActivity extends AppCompatActivity {
         if (inputText == null){review.child("Review").setValue("");}
         else{ review.child("Review").setValue(inputText.getText().toString());}
         review.child("Anonymous").setValue(anonymous);
+        review.child("User").setValue(user);
 
 
         try {

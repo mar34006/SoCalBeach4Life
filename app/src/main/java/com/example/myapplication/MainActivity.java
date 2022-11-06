@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference reference;
 
     String beach_name;
+    String user;
     final double[] lot1 = new double[2];
     final double[] lot2 = new double[2];
     double[] loc = new double[2];
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         beach_name = intent.getStringExtra("beach_name");
-        //beach_name = "will rogers";
+        user = intent.getStringExtra("user");
 
         // Name
 
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("name", beach_name);
         intent.putExtra("lot1", lot1);
         intent.putExtra("lot2", lot2);
+        intent.putExtra("user", user);
         Log.i("LOG DATA", String.format("lot1: (%f, %f)", lot1[0], lot1[1]));
         Log.i("LOG DATA", String.format("lot2: (%f, %f)", lot2[0], lot2[1]));
         intent.putExtra("loc", loc);
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickReadReview(View view){
         Intent intent = new Intent(this, ReadReviewActivity.class);
         intent.putExtra("beach_name", beach_name);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 

@@ -14,9 +14,12 @@
         android:theme="@style/Theme.SoCalBeach4LifeReal"
         tools:targetApi="31">
         <activity
+            android:name=".ViewRoutesActivity"
+            android:exported="false" />
+        <activity
             android:name=".DisplayBeachesActivity"
             android:exported="true"
-            android:label="@string/title_activity_map_beaches"/>
+            android:label="@string/title_activity_map_beaches" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -49,8 +52,7 @@
         <activity
             android:name=".MapsActivity"
             android:exported="true"
-            android:label="@string/title_activity_maps">
-        </activity>
+            android:label="@string/title_activity_maps"></activity>
         <activity
             android:name=".LoginActivity"
             android:exported="true">

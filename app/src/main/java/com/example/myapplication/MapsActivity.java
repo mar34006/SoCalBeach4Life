@@ -281,10 +281,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     reference.child("routes").setValue(true);
                 }
 
+                // GERARDO
                 DatabaseReference route = reference.push();
-                route.child("Start").setValue("home");
-                route.child("Destination").setValue("destination");
-                route.child("Time").setValue("time");
+                route.child("Start").setValue("home"); //GERARDO
+                route.child("Destination").setValue("destination"); //GERARDO
+                route.child("Time").setValue("time"); // GERARDO
 
                 TextView changeText = (TextView) view;
                 changeText.setText("Route saved!");

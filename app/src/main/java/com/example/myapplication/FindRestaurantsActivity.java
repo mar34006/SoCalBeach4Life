@@ -83,7 +83,7 @@ public class FindRestaurantsActivity extends AppCompatActivity {
                 for (DataSnapshot get_restaurant : dataSnapshot.getChildren()) {
                     Restaurant restaurant = new Restaurant();
                     restaurant.name = get_restaurant.child("name").getValue(String.class);
-                    Log.i("REST_INFO", restaurant.name);
+                    //Log.i("REST_INFO", restaurant.name);
                     restaurant.coords[0] = get_restaurant.child("coords").child("lat").getValue(double.class);
                     restaurant.coords[1] = get_restaurant.child("coords").child("long").getValue(double.class);
                     restaurant.menu_url = get_restaurant.child("menu").getValue(String.class);
@@ -120,6 +120,7 @@ public class FindRestaurantsActivity extends AppCompatActivity {
         for(int i =  0; i < valid_restaurants.size(); i++)
         {
             r[i] = valid_restaurants.get(i);
+            Log.i("INFO REST", r[i].name);
         }
         p.restaurants = r;
         p.distance = dist;
@@ -128,8 +129,7 @@ public class FindRestaurantsActivity extends AppCompatActivity {
         intent.putExtra("restaurants", p);
         intent.putExtra("loc", loc);
         startActivity(intent);
-
-        this.finish();
+        //this.finish();
 
     }
 }

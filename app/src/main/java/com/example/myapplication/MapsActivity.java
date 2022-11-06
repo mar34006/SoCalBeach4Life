@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -179,7 +180,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String name = r.name;
                 double distance = r.distance;
                 String title = String.format("%s (%d ft)", name, (long)distance);
-                addLocationMarker(r.coords[0], r.coords[1], title);
+                Log.i("EXTRA REST INFO", String.format("%s (%f, %f)", r.name, r.coords[0], r.coords[1]));
+                this.addLocationMarker(r.coords[0], r.coords[1], title);
             }
         }
     }

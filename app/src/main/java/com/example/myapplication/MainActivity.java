@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beach);
 
-        //Intent intent = getIntent();
-        // beach_name = intent.getStringExtra("beach_name");
-        beach_name = "will rogers";
+        Intent intent = getIntent();
+        beach_name = intent.getStringExtra("beach_name");
+        //beach_name = "will rogers";
 
         // Name
 

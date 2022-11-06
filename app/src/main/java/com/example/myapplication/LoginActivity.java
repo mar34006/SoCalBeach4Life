@@ -49,6 +49,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextPassword=(EditText)findViewById(R.id.password);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        //Intent intent = new Intent(LoginActivity.this, DisplayBeachesActivity.class);
+        //intent.putExtra("user", "gv");
+        //startActivity(intent);
     }
 
     @Override
@@ -80,7 +84,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
                         //redirect to mainActivity
-                        Intent intent = new Intent(LoginActivity.this, DisplayBeaches.class);
+                        Intent intent = new Intent(LoginActivity.this, DisplayBeachesActivity
+                                .class);
                         intent.putExtra("user", email);
                         startActivity(intent);
                     }
@@ -90,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     progressBar.setVisibility(View.GONE);
                 }
             });
-            this.finish();
+            //this.finish();
         }
     }
 

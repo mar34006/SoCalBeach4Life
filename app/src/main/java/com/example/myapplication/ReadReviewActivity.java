@@ -97,7 +97,7 @@ public class ReadReviewActivity extends AppCompatActivity {
                         containerLayout.addView(ratingText);
                         i += 3;
 
-                        if (text_review != "") {
+                        if (!(text_review.equals(""))) {
                             TextView reviewText = new TextView(context);
                             reviewText.setText(text_review);
                             reviewText.setTextSize(20);
@@ -130,5 +130,13 @@ public class ReadReviewActivity extends AppCompatActivity {
         intent.putExtra("user", user);
         startActivity(intent);
         this.finish(); 
+    }
+
+    public void onClickDeleteReview(View view){
+        Intent intent = new Intent(this, DeleteReviewActivity.class);
+        intent.putExtra("beach_name", beach_name);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        this.finish();
     }
 }

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.SoCalBeach4LifeReal"
         tools:targetApi="31">
         <activity
+            android:name=".DeleteReviewActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewRoutesActivity"
             android:exported="false" />
         <activity
@@ -53,7 +56,7 @@
         <activity
             android:name=".MapsActivity"
             android:exported="true"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">

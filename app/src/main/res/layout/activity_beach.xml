@@ -80,15 +80,5 @@
         android:padding="5dp"
         android:text="Back" />
 
-    <Button
-        android:id="@+id/profilePage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:layout_toRightOf="@id/back"
-        android:text="My Profile" />
-
 
 </RelativeLayout>

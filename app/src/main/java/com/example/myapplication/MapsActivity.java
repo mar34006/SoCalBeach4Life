@@ -266,7 +266,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     saveRoute.setText("View menu");
                     restaurantClicked = true;
                     destination_restaurant_name = m.getTitle();
-                    destination_restaurant_name = destination_restaurant_name.substring(destination_restaurant_name.lastIndexOf(':'));
+                    int breakIndex = destination_restaurant_name.lastIndexOf(':');
+                    if(breakIndex > 0)
+                    {
+                        destination_restaurant_name = destination_restaurant_name.substring(breakIndex);
+                    }
 
                     //GERARDO
                     //DRAW PATH NEEDS TO CALCULATE TIME BY WALKING INSTEAD IF DRIVING

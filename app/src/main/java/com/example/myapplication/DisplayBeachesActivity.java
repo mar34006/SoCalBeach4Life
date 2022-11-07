@@ -167,7 +167,12 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
         mMap = googleMap;
         for (Beach b: beaches)
         {
-            addLocationMarker(b.getLat(), b.getLong(), b.getName(), b.hours, b.hidden_name);
+            String hours = "";
+            if(b.hours != null)
+                hours = b.hours;
+            else
+                hours = "No hours available.";
+            addLocationMarker(b.getLat(), b.getLong(), b.getName(), hours, b.hidden_name);
             Log.i("BEACH DISPLAY", String.format("%s: (%f, %f)", b.getName(), b.getLat(), b.getLong()));
         }
         LatLng home = new LatLng(34.0168108, -118.2717179);

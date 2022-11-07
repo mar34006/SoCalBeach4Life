@@ -249,6 +249,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     saveRoute.setText("View menu");
                     restaurantClicked = true;
 
+                    //GERARDO
+                    //DRAW PATH NEEDS TO CALCULATE TIME BY WALKING INSTEAD IF DRIVING
+                    //THX
                     LatLng home = beach_dest;
                     LatLng dest = m.getPosition();
                     destMarker = m;
@@ -282,6 +285,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
                 // GERARDO
+                // REPLACE "home", "destination", and "time" PLACEHOLDERS W ACTUAL VALUES
+                // THX
                 DatabaseReference route = reference.push();
                 route.child("Start").setValue("home"); //GERARDO
                 route.child("Destination").setValue("destination"); // GERARDO

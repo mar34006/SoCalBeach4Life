@@ -48,6 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LatLng lot1, lot2;
     LatLng beach_dest;
     RestaurantPacks availableRestaurants;
+    double myLocation[] = new double[2];
 
     FirebaseDatabase root;
     DatabaseReference reference;
@@ -71,6 +72,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String mode = intent.getStringExtra("mode");
         this.beach_name = intent.getStringExtra("name");
         double loc[] = intent.getDoubleArrayExtra("loc");
+        this.myLocation = intent.getDoubleArrayExtra("my_location");
         this.beach_dest = new LatLng(loc[0], loc[1]);
         if (mode.equals("beach lots")) {
             this.mode = Mode.LOTS;
@@ -143,7 +145,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         Log.i("map", "map ready");
-        LatLng home = new LatLng(34.0168108, -118.2717179);
+        LatLng home;
+        if(myLocation[0] != 0)
+        {
+            home = new LatLng(myLocation[0], myLocation[1]);
+        }
+        else
+        {
+            home = new LatLng(34.0168108, -118.2717179);;
+        }
         LatLng dest1, dest2;
         if(mode == Mode.LOTS)
         {

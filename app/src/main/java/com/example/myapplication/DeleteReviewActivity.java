@@ -39,7 +39,6 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
     Boolean forceDataChange = true;
     ArrayList<String> delete_reviews = new ArrayList<>();
     HashMap<String, DataSnapshot> review_keys = new HashMap<>();
-    Context context2 = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +52,7 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
         Context context = this;
 
         Intent intent = getIntent();
-        //user = intent.getStringExtra("user");
-        //beach_name = intent.getStringExtra("beach_name");
-        user = "mr@gmail.com";
+        user = intent.getStringExtra("user");
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -72,9 +69,9 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
                              if(get_review.child("User").getValue().equals(user)){
 
                                  TextView label = new TextView(context);
-                                 label.setText("Review: " + count);
-                                 delete_reviews.add("Review: " + count);
-                                 review_keys.put("Review: " + count, get_review);
+                                 label.setText("Review: " + count + 1);
+                                 delete_reviews.add("Review: " + count + 1);
+                                 review_keys.put("Review: " + count + 1, get_review);
                                  label.setTextSize(20);
                                  label.setPadding(0, (i * 30), 0, 0);
                                  containerLayout.addView(label);
@@ -112,22 +109,23 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
                                  i+=3;
                                  count += 1;
 
-                                 ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, delete_reviews);
-                                 spinner.setAdapter(adapter);
-                                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                     @Override
-                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                         Toast.makeText(DeleteReviewActivity.this,  delete_reviews.get(position), Toast.LENGTH_SHORT).show();
-                                     }
-
-                                     @Override
-                                     public void onNothingSelected(AdapterView<?> parent) {
-
-                                     }
-                                 });
                              }
                          }
                     }
+
+                    ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, delete_reviews);
+                    spinner.setAdapter(adapter);
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            Toast.makeText(DeleteReviewActivity.this,  delete_reviews.get(position), Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
 
                     forceDataChange = false;
                 }

@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button update;
 
     String firstName, lastName, email, address;
-    TextView firstNameTextView, lastNameTextView, emailTextView, addressTextView, banner;
+    TextView firstNameTextView, lastNameTextView, addressTextView, banner, greeting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +63,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         firstNameTextView = (TextView) findViewById(R.id.firstName);
         lastNameTextView = (TextView) findViewById(R.id.lastName);
-        emailTextView = (TextView) findViewById(R.id.email);
         addressTextView = (TextView)findViewById(R.id.address);
+        greeting = (TextView)findViewById(R.id.greeting);
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -80,8 +80,8 @@ public class ProfileActivity extends AppCompatActivity {
                     // Setting the TextViews to appropriate text
                     firstNameTextView.setText(firstName);
                     lastNameTextView.setText(lastName);
-                    emailTextView.setText(email);
                     addressTextView.setText(address);
+                    greeting.setText("Welcome, " + firstName + ".");
 
                 }
             }

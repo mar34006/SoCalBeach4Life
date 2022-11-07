@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
                 loc[0] = dataSnapshot.child("lat").getValue(Double.class);
                 loc[1] = dataSnapshot.child("long").getValue(Double.class);
+
             }
 
             @Override

@@ -132,4 +132,6 @@ public class FindRestaurantsActivity extends AppCompatActivity {
         //this.finish();
 
     }
+
+    public void onClickBack(View view){ this.finish(); }
 }

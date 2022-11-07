@@ -23,6 +23,7 @@ public class ReadReviewActivity extends AppCompatActivity {
     FirebaseDatabase root;
     DatabaseReference reference;
     String beach_name;
+    String user;
     Boolean explicit_call;
 
     @Override
@@ -35,6 +36,7 @@ public class ReadReviewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         beach_name = intent.getStringExtra("beach_name");
+        user = intent.getStringExtra("user");
 
         root = FirebaseDatabase.getInstance();
         reference = root.getReference("beaches").child(beach_name).child("name");
@@ -75,12 +77,13 @@ public class ReadReviewActivity extends AppCompatActivity {
                         String rating = get_review.child("Rating").getValue().toString();
                         String text_review = get_review.child("Review").getValue().toString();
                         String anonymous = get_review.child("Anonymous").getValue().toString();
+                        String username = get_review.child("User").getValue().toString();
 
                         TextView userText = new TextView(context);
                         if (Boolean.valueOf(anonymous)) {
                             userText.setText("Anonymous user:");
                         } else {
-                            userText.setText("User 1:");
+                            userText.setText(username);
                         }
                         userText.setTextSize(20);
                         userText.setPadding(0, (i * 30), 0, 0);
@@ -124,6 +127,7 @@ public class ReadReviewActivity extends AppCompatActivity {
     public void onClickLeaveReview(View view){
         Intent intent = new Intent(this, LeaveReviewActivity.class);
         intent.putExtra("beach_name", beach_name);
+        intent.putExtra("user", user);
         startActivity(intent);
         this.finish(); 
     }

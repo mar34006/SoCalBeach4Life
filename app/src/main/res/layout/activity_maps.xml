@@ -20,4 +20,17 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="15dp"
         android:onClick="onClickBack"/>
+
+    <Button
+        android:id="@+id/saveRoute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:text= "Select a lot to begin routing"
+        android:onClick="onClickSaveRoute"
+        />
+
 </RelativeLayout>

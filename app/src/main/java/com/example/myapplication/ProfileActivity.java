@@ -106,6 +106,14 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    public void onClickViewRoutes(View view){
+        Intent intent = new Intent(this, ViewRoutesActivity.class);
+        intent.putExtra("user", email);
+        startActivity(intent);
+    }
+
+    public void onClickBack(View view){ this.finish(); }
+
     private boolean isFirstNameChanged() {
         if(!firstName.equals(firstNameTextView.getText().toString().trim())) {
             reference.child(userID).child("firstName").setValue(firstNameTextView.getText().toString().trim());

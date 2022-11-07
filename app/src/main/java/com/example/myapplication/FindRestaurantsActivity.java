@@ -24,6 +24,7 @@ class Restaurant implements Serializable
     String name;
     double coords[] = new double[2];
     String menu_url;
+    String hours;
     double distance;
 }
 
@@ -88,6 +89,11 @@ public class FindRestaurantsActivity extends AppCompatActivity {
                     restaurant.coords[1] = get_restaurant.child("coords").child("long").getValue(double.class);
                     restaurant.menu_url = get_restaurant.child("menu").getValue(String.class);
                     restaurant.distance = get_restaurant.child("distance").getValue(double.class);
+                    String val = get_restaurant.child("hours").getValue(String.class);
+                    if(val != null)
+                        restaurant.hours = val;
+                    else
+                        restaurant.hours = "No hours to display";
                     restaurants.add(restaurant);
                 }
             }

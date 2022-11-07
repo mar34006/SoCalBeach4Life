@@ -164,11 +164,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng loc = new LatLng(lat, lon);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, zoom));
     }
-
     public void addLocationMarker(double lat, double lon, String markerText)
     {
         LatLng loc = new LatLng(lat, lon);
         extraMarkers.add(mMap.addMarker(new MarkerOptions().position(loc).title(markerText)));
+    }
+
+    public void addLocationMarker(double lat, double lon, String markerText, String snippet)
+    {
+        LatLng loc = new LatLng(lat, lon);
+        extraMarkers.add(mMap.addMarker(new MarkerOptions().position(loc).title(markerText).snippet(snippet)));
     }
 
     public void drawPathFromAtoB(double latA, double lonA, double latB, double lonB, TransportationMode mode)
@@ -251,7 +256,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //String title = String.format("%s (%d ft)", name, (long)distance);
                 String title = String.format(name);
                 Log.i("EXTRA REST INFO", String.format("%s (%f, %f)", r.name, r.coords[0], r.coords[1]));
-                this.addLocationMarker(r.coords[0], r.coords[1], title);
+                this.addLocationMarker(r.coords[0], r.coords[1], title, r.hours);
             }
 
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {

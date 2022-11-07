@@ -101,6 +101,15 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
         FragmentManager support = getSupportFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) support.findFragmentById(R.id.beaches_map);
 
+        Button toProfileBtn = (Button)findViewById(R.id.profilePage);
+
+        toProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DisplayBeachesActivity.this, ProfileActivity.class));
+            }
+        });
+
         Intent intent = getIntent();
         user = intent.getStringExtra("user");
 

@@ -48,15 +48,6 @@ public class MainActivity extends AppCompatActivity {
         TextView view_hours = findViewById(R.id.hours);
         TextView view_location = findViewById(R.id.location);
 
-        Button toProfileBtn = (Button)findViewById(R.id.profilePage);
-
-        toProfileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-            }
-        });
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

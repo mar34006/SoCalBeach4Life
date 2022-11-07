@@ -5,43 +5,36 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop= "60dp"
         android:textSize = "30dp"
+        android:text = "Delete reviews"
         android:layout_marginBottom="30dp" />
 
-    <Button
-        android:id="@+id/leave_review"
+    <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/name"
-        android:padding="5dp"
-        android:text="Leave review"
-        android:onClick="onClickLeaveReview"
+        android:id="@+id/spinner"
+        android:layout_below= "@+id/title"
+        android:layout_marginLeft="32dp"
         />
 
     <Button
-        android:id="@+id/delete_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/leave_review"
-        android:padding="5dp"
-        android:text="Leave review"
-        android:onClick="onClickDeleteReview"
+        android:id="@+id/delete_button"
+        android:layout_below= "@+id/title"
+        android:layout_toRightOf="@+id/spinner"
+        android:text = "Delete review"
         />
-
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below= "@+id/delete_review"
+        android:layout_below= "@+id/spinner"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
@@ -50,7 +43,6 @@
             android:id="@+id/container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             >
 
             <TextView

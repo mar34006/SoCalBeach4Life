@@ -1,5 +1,8 @@
 package com.example.myapplication;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
@@ -316,9 +319,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // REPLACE "home", "destination", and "time" PLACEHOLDERS W ACTUAL VALUES
                 // THX
                 DatabaseReference route = reference.push();
+                Calendar currentTime = Calendar.getInstance();
+                Calendar after = Calendar.getInstance();
+                int minutes = Integer.valueOf(duration.replaceAll("[^0-9]", ""));
+                after.add(Calendar.MINUTE, minutes);
                 route.child("Start").setValue("Last location: " + String.format("%f, %f", a_home.latitude, a_home.longitude)); //GERARDO
                 route.child("Destination").setValue(actual_beach_name + ": " + String.format("%f, %f", a_dest.latitude, a_dest.longitude)); // GERARDO
-                route.child("Time").setValue(duration); // GERARDO
+                String date = String.format("%d/%d/%d: ", currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH), currentTime.get(Calendar.YEAR));
+                String time1 = String.format("%02d:%02d", currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE));
+                String time2 = String.format("%02d:%02d", after.get(Calendar.HOUR_OF_DAY), after.get(Calendar.MINUTE));
+                String formattedDuration = date + time1 + " - " + time2 + " | Duration: " + duration;
+                route.child("Time").setValue(formattedDuration); // GERARDO
 
                 TextView changeText = (TextView) view;
                 changeText.setText("Route saved!");

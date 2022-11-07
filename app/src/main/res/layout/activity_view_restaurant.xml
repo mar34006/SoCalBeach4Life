@@ -13,49 +13,26 @@
         android:textSize = "30dp"
         android:layout_marginTop="20dp" />
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
-
     <TextView
-        android:id="@+id/restaurant_description"
+        android:id="@+id/hours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/restaurant_title"
-        android:layout_marginTop="32dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:textSize = "20dp"
-        android:padding="5dp" />
+        android:textSize = "30dp"
+        android:layout_marginTop="20dp" />
+
 
     <Button
         android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp"
         android:padding="5dp"
         android:text="View menu"
         android:onClick="onClickMenu"
-        android:layout_above="@+id/route"
-        />
-
-    <Button
-        android:id="@+id/route"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:padding="5dp"
-        android:text="Route to restaurant"
-        android:onClick="onClickRoute"
+        android:layout_below="@+id/hours"
         />
 
     <Button

@@ -23,7 +23,7 @@ public class ViewRestaurantActivity extends AppCompatActivity {
     String beach_name;
     String restaurant_name;
     String menu;
-    double coords[] = new double[2];
+    Boolean forceDataChange = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +37,29 @@ public class ViewRestaurantActivity extends AppCompatActivity {
 
         root = FirebaseDatabase.getInstance();
         reference = root.getReference("beaches");
-        reference = reference.child(beach_name).child("restaurants").child(restaurant_name);
+        reference = reference.child(beach_name).child("restaurants");
 
         TextView rest_view_name = findViewById(R.id.restaurant_title);
-        TextView rest_view_description = findViewById(R.id.restaurant_description);
+        TextView rest_view_hours = findViewById(R.id.hours);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(forceDataChange) {
+                    for(DataSnapshot rest_snap: dataSnapshot.getChildren()) {
+                        if(rest_snap.child("name").equals(restaurant_name)) {
+                            String name = rest_snap.child("name").getValue(String.class);
+                            rest_view_name.setText(name);
 
-                String name = dataSnapshot.child("name").getValue(String.class);
-                rest_view_name.setText(name);
+                            String hours = rest_snap.child("hours").getValue(String.class);
+                            rest_view_hours.setText(hours);
 
-                menu = dataSnapshot.child("menu").getValue(String.class);
+                            menu = rest_snap.child("menu").getValue(String.class);
 
-                coords[0] = dataSnapshot.child("coords").child("lat").getValue(double.class);
-                coords[1] = dataSnapshot.child("coords").child("long").getValue(double.class);
+                            forceDataChange = false;
+                        }
+                    }
+                }
             }
 
             @Override
@@ -62,16 +69,10 @@ public class ViewRestaurantActivity extends AppCompatActivity {
             }
         });
 
-    }
+        DatabaseReference change = reference.push();
+        change.setValue("Change");
+        change.removeValue();
 
-    public void onClickRoute(View view){
-        // GERARDO
-        //Intent intent = new Intent(this, MapActivity.class);
-        //intent.putExtra("name", restaurant_name);
-        //intent.putExtra("lat", coords[0]);
-        //intent.putExtra("long", coords[1]);
-        //startActivity(intent);
-        this.finish();
     }
 
     public void onClickMenu(View view){

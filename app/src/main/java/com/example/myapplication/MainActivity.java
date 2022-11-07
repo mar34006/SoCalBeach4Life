@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView view_name = findViewById(R.id.beach_title);
         TextView view_description = findViewById(R.id.description);
+        TextView view_hours = findViewById(R.id.hours);
 
         Button toProfileBtn = (Button)findViewById(R.id.profilePage);
 
@@ -64,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
                 String description = dataSnapshot.child("description").getValue(String.class);
                 view_description.setText(description);
+
+                String hours = dataSnapshot.child("hours").getValue(String.class);
+                view_hours.setText(hours);
 
                 lot1[0] = dataSnapshot.child("lots").child("lot1").child("lat").getValue(double.class);
                 lot1[1] = dataSnapshot.child("lots").child("lot1").child("long").getValue(double.class);

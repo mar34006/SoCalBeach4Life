@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference reference;
 
     String beach_name;
+    String actual_beach_name = null;
     String user;
     final double[] lot1 = new double[2];
     final double[] lot2 = new double[2];
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.child("name").getValue(String.class);
+                actual_beach_name = name;
                 view_name.setText(name);
 
                 String description = dataSnapshot.child("description").getValue(String.class);
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("lot1", lot1);
         intent.putExtra("lot2", lot2);
         intent.putExtra("user", user);
+        intent.putExtra("a_beach_name", actual_beach_name);
         Log.i("LOG DATA", String.format("lot1: (%f, %f)", lot1[0], lot1[1]));
         Log.i("LOG DATA", String.format("lot2: (%f, %f)", lot2[0], lot2[1]));
         intent.putExtra("loc", loc);
@@ -109,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickFindRestaurant(View view){
         Intent intent = new Intent(this, FindRestaurantsActivity.class);
         intent.putExtra("beach_name", beach_name);
+        intent.putExtra("a_beach_name", actual_beach_name);
         intent.putExtra("loc", loc);
         startActivity(intent);
         //this.finish();

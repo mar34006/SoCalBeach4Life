@@ -18,11 +18,13 @@ public class FetchMapData extends AsyncTask<LatLng, String, String> {
     private static final String API_KEY = "AIzaSyC0bF1q80VY5W1vD73VCb45NMEU4mUvHsg";
     MapsActivity ctxt;
     LatLng destination;
+    MapsActivity.TransportationMode mMode;
 
-    FetchMapData(MapsActivity context)
+    FetchMapData(MapsActivity context, MapsActivity.TransportationMode mode)
     {
         ctxt = context;
         destination = null;
+        mMode = mode;
     }
 
     @Override
@@ -69,7 +71,12 @@ public class FetchMapData extends AsyncTask<LatLng, String, String> {
 
     public String getPathUrl(LatLng a, LatLng b)
     {
-        String res = String.format("https://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&sensor=false&mode=driving&key=%s", a.latitude, a.longitude, b.latitude, b.longitude, API_KEY);
+        String method = "";
+        if(mMode == MapsActivity.TransportationMode.DRIVING)
+            method = "driving";
+        else
+            method = "walking";
+        String res = String.format("https://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&sensor=false&mode=%s&key=%s", a.latitude, a.longitude, b.latitude, b.longitude, method, API_KEY);
         Log.i("URL", res);
         return res;
     }

@@ -50,7 +50,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Mode mode;
     String beach_name;
     LatLng lot1, lot2;
+    String actual_beach_name;
+    String destination_restaurant_name;
     LatLng beach_dest;
+    LatLng a_home = null, a_dest = null;
     RestaurantPacks availableRestaurants;
     double myLocation[] = new double[2];
 
@@ -70,6 +73,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int DEFAULT_STROKE = Color.argb(100, 220, 0, 0);
     private static final int DEFAULT_FILL = Color.argb(40, 0, 0, 140);
 
+    enum TransportationMode { WALKING, DRIVING };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         user = intent.getStringExtra("user");
         this.beach_name = intent.getStringExtra("name");
         double loc[] = intent.getDoubleArrayExtra("loc");
+        this.actual_beach_name = intent.getStringExtra("a_beach_name");
         this.myLocation = intent.getDoubleArrayExtra("my_location");
         this.beach_dest = new LatLng(loc[0], loc[1]);
         if (mode.equals("beach lots")) {
@@ -165,11 +171,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         extraMarkers.add(mMap.addMarker(new MarkerOptions().position(loc).title(markerText)));
     }
 
-    public void drawPathFromAtoB(double latA, double lonA, double latB, double lonB)
+    public void drawPathFromAtoB(double latA, double lonA, double latB, double lonB, TransportationMode mode)
     {
         LatLng start = new LatLng(latA, lonA);
         LatLng end = new LatLng(latB, lonB);
-        new FetchMapData(MapsActivity.this).execute(start, end);
+        new FetchMapData(MapsActivity.this, mode).execute(start, end);
     }
 
     public void setPolyLine(PolylineOptions options)
@@ -182,6 +188,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void addDestinationInformation(String durr)
     {
         Log.i("MAP", "destination clicked");
+        duration = durr;
         if(!(destMarker.getTitle().contains(" mins") || destMarker.getTitle().contains(" min")))
         {
             destMarker.setTitle(destMarker.getTitle() + ": " + durr);
@@ -193,7 +200,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         Log.i("map", "map ready");
         LatLng home;
-        if(myLocation[0] != 0)
+        if(myLocation != null)
         {
             home = new LatLng(myLocation[0], myLocation[1]);
         }
@@ -222,11 +229,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     saveRoute.setText("Click to save route");
                     lotClicked = true;
 
-                    LatLng home = originMarker.getPosition();
-                    LatLng dest = m.getPosition();
+                    a_home = originMarker.getPosition();
+                    a_dest = m.getPosition();
                     destMarker = m;
-                    drawPathFromAtoB(home.latitude, home.longitude, dest.latitude, dest.longitude);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(dest, 12.0f));
+                    drawPathFromAtoB(a_home.latitude, a_home.longitude, a_dest.latitude, a_dest.longitude, TransportationMode.DRIVING);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(a_dest, 12.0f));
                     return false;
                 }
             });
@@ -258,6 +265,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     TextView saveRoute = (TextView)findViewById(R.id.saveRoute);
                     saveRoute.setText("View menu");
                     restaurantClicked = true;
+                    destination_restaurant_name = m.getTitle();
+                    destination_restaurant_name = destination_restaurant_name.substring(destination_restaurant_name.lastIndexOf(':'));
 
                     //GERARDO
                     //DRAW PATH NEEDS TO CALCULATE TIME BY WALKING INSTEAD IF DRIVING
@@ -265,7 +274,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     LatLng home = beach_dest;
                     LatLng dest = m.getPosition();
                     destMarker = m;
-                    drawPathFromAtoB(home.latitude, home.longitude, dest.latitude, dest.longitude);
+                    drawPathFromAtoB(home.latitude, home.longitude, dest.latitude, dest.longitude, TransportationMode.WALKING);
 
                     selectedRestaurantName = m.getTitle();
 
@@ -298,9 +307,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // REPLACE "home", "destination", and "time" PLACEHOLDERS W ACTUAL VALUES
                 // THX
                 DatabaseReference route = reference.push();
-                route.child("Start").setValue("home"); //GERARDO
-                route.child("Destination").setValue("destination"); // GERARDO
-                route.child("Time").setValue("time"); // GERARDO
+                route.child("Start").setValue("Last location: " + String.format("%f, %f", a_home.latitude, a_home.longitude)); //GERARDO
+                route.child("Destination").setValue(actual_beach_name + ": " + String.format("%f, %f", a_dest.latitude, a_dest.longitude)); // GERARDO
+                route.child("Time").setValue(duration); // GERARDO
 
                 TextView changeText = (TextView) view;
                 changeText.setText("Route saved!");

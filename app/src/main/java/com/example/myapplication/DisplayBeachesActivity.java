@@ -187,6 +187,8 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
 
     public void onClickBeach(View v)
     {
+        if(selected_beach == "")
+            return;
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("beach_name", selected_beach);
         intent.putExtra("user", user);

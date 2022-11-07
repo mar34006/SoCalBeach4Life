@@ -39,6 +39,7 @@ import java.util.Set;
 class Beach implements Serializable {
     String hidden_name;
     String name;
+    String hours;
     double loc[] = new double[2];
     public String getName()
     {
@@ -64,6 +65,8 @@ class Beach implements Serializable {
     {
         this.loc[1] = l;
     }
+    public void setHours(String h) { this.hours = h; }
+    public String getHours() { return hours; }
 }
 
 class ExtraMarker
@@ -150,10 +153,10 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, zoom));
     }
 
-    public void addLocationMarker(double lat, double lon, String markerText, String hidden_name)
+    public void addLocationMarker(double lat, double lon, String markerText, String hours, String hidden_name)
     {
         LatLng loc = new LatLng(lat, lon);
-        MarkerOptions options = new MarkerOptions().position(loc).title(markerText);
+        MarkerOptions options = new MarkerOptions().position(loc).title(markerText).snippet(hours);
         Marker m = mMap.addMarker(options);
         ExtraMarker em = new ExtraMarker(m);
         em.hidden = hidden_name;
@@ -164,7 +167,12 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
         mMap = googleMap;
         for (Beach b: beaches)
         {
-            addLocationMarker(b.getLat(), b.getLong(), b.getName(), b.hidden_name);
+            String hours = "";
+            if(b.hours != null)
+                hours = b.hours;
+            else
+                hours = "No hours available.";
+            addLocationMarker(b.getLat(), b.getLong(), b.getName(), hours, b.hidden_name);
             Log.i("BEACH DISPLAY", String.format("%s: (%f, %f)", b.getName(), b.getLat(), b.getLong()));
         }
         LatLng home = new LatLng(34.0168108, -118.2717179);

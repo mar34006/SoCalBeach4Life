@@ -20,7 +20,7 @@
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/name"
         android:padding="5dp"
         android:text="Leave review"
@@ -35,7 +35,7 @@
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/leave_review"
         android:padding="5dp"
         android:text="Delete review"
@@ -46,7 +46,7 @@
         />
 
     <TextView
-        android:id="@+id/review_title"
+        android:id="@+id/average_reviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
@@ -55,6 +55,30 @@
         android:textStyle="bold"
         android:fontFamily="sans-serif-black"
         android:layout_below="@id/delete_review"
+        />
+
+    <TextView
+        android:id="@+id/num_reviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop= "20dp"
+        android:textSize = "30sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:layout_below="@id/average_reviews"
+        />
+
+    <TextView
+        android:id="@+id/review_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop= "10dp"
+        android:textSize = "30sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:layout_below="@id/num_reviews"
         android:text = "Reviews"/>
 
 
@@ -63,7 +87,7 @@
         android:layout_height="match_parent"
         android:layout_below= "@+id/review_title"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp">
         <RelativeLayout

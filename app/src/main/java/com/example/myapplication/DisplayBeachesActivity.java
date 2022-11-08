@@ -3,15 +3,23 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.databinding.ActivityMapsBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -79,18 +87,24 @@ class ExtraMarker
     }
 }
 
-public class DisplayBeachesActivity extends AppCompatActivity implements OnMapReadyCallback {
-
+public class DisplayBeachesActivity extends AppCompatActivity implements OnMapReadyCallback
+{
     FirebaseDatabase root;
     DatabaseReference reference;
     ArrayList<Beach> beaches = new ArrayList<>();
     String user;
     Boolean forceDataChange = true;
     List<ExtraMarker> markers = new ArrayList<ExtraMarker>();
+    String homeAddress = null;
+    double h_loc[] = new double[2];
+    EditText address = null;
+    Button submit = null;
+
 
     private GoogleMap mMap;
-    private ActivityMapsBinding binding;
-    String selected_beach = "";
+    private boolean permissionDenied = false;
+    private static final int LOCATION_REQUESTED_CODE = 58;
+    String selected_beach = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +122,9 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
         reference = root.getReference();
         reference = reference.child("beaches");
         DisplayBeachesActivity THIS = this;
+
+        address = (EditText)findViewById(R.id.editTextTextPostalAddress);
+        submit = (Button)findViewById(R.id.button);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -195,11 +212,29 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
 
     public void onClickBeach(View v)
     {
-        if(selected_beach == "")
+        if(selected_beach == null || homeAddress == null)
             return;
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("beach_name", selected_beach);
         intent.putExtra("user", user);
+        intent.putExtra("home_loc", h_loc);
+        intent.putExtra("my_location", homeAddress);
         startActivity(intent);
     }
+
+
+    public void receivedLocation(LatLng loca)
+    {
+        Log.i("LOCATION RECEIVED", String.format("%f, %f", loca.latitude, loca.longitude));
+        homeAddress = address.getText().toString().trim();
+        h_loc[0] = loca.latitude;
+        h_loc[1] = loca.longitude;
+    }
+
+    public void submitAddress(View v)
+    {
+        String addr = address.getText().toString().trim();
+        new FetchCurrentLocation(DisplayBeachesActivity.this).execute(addr);
+    }
+
 }

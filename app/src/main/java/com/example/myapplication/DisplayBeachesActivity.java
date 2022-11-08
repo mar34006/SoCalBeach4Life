@@ -224,7 +224,7 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
     {
         if(selected_beach == null || homeAddress == null)
         {
-            Toast.makeText(DisplayBeachesActivity.this, "Please input and search address and choose beach first!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DisplayBeachesActivity.this, "Please enter and send address, then choose beach first!", Toast.LENGTH_SHORT).show();
             return;
         }
         Intent intent = new Intent(this, MainActivity.class);

@@ -303,11 +303,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 root = FirebaseDatabase.getInstance();
                 reference = root.getReference("Users").child(user_reference);
 
-                if (routesExist) {
-                    reference = reference.child("routes");
-                } else {
-                    reference.child("routes").setValue(true);
-                }
+                if (!routesExist) {reference.child("routes").setValue(true);}
+                reference = reference.child("routes");
                 DatabaseReference route = reference.push();
                 Calendar currentTime = Calendar.getInstance();
                 Calendar after = Calendar.getInstance();
@@ -331,7 +328,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String date = String.format("%d/%d/%d: ", currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH), currentTime.get(Calendar.YEAR));
                 String time1 = String.format("%02d:%02d", currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE));
                 String time2 = String.format("%02d:%02d", after.get(Calendar.HOUR_OF_DAY), after.get(Calendar.MINUTE));
-                String formattedDuration = "Date: " + date + time1 + " - " + time2 + "\nDuration: " + duration;
+                String formattedDuration = time1 + " - " + time2 + " | Duration: " + duration;
+                route.child("Date").setValue(date);
                 route.child("Time").setValue(formattedDuration); // GERARDO
 
                 TextView changeText = (TextView) view;

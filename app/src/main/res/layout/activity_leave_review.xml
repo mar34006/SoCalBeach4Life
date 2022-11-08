@@ -11,7 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop= "70dp"
-        android:textSize = "30dp"
+        android:textSize = "40dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
         android:layout_marginBottom="30dp" />
 
     <TextView
@@ -19,9 +21,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize = "15dp"
+        android:textSize = "17dp"
         android:text = "How would you rate the beach out of 1-5?"
         android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
         android:layout_below="@+id/name"/>
 
     <TextView
@@ -44,6 +48,9 @@
         android:layout_marginRight="20dp"
         android:padding="5dp"
         android:text="-"
+        android:textColor="@color/white"
+        android:backgroundTint="#0ED6B9"
+        android:textStyle="bold"
         android:onClick="onClickMinus" />
 
     <Button
@@ -56,6 +63,9 @@
         android:layout_marginTop = "20dp"
         android:padding="5dp"
         android:text="+"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:backgroundTint="#0ED6B9"
         android:onClick="onClickPlus" />
 
     <TextView
@@ -63,9 +73,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize = "15dp"
+        android:textSize = "17dp"
         android:text = "Leave your review here (optional)"
         android:layout_marginTop="40dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
         android:layout_below="@+id/rating"/>
 
     <EditText
@@ -86,11 +98,15 @@
         android:id="@+id/leave_rev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/plus"
+        android:layout_alignLeft="@+id/minus"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:padding="5dp"
         android:text="Leave review"
+        android:textColor="@color/white"
+        android:backgroundTint="#0ED6B9"
         android:onClick="onClickLeaveRev" />
 
     <TextView
@@ -98,22 +114,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize = "15dp"
+        android:textSize = "17dp"
         android:layout_below= "@+id/inputText"
         android:text = "Leave an anonymous review?"
         android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
         android:layout_centerVertical="true"/>
 
     <Button
         android:id="@+id/anon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/plus"
+        android:layout_alignLeft="@+id/minus"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:padding="5dp"
         android:text="Yes"
         android:layout_below= "@+id/anon_desc"
         android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:backgroundTint="#0ED6B9"
         android:onClick="onClickAnon" />
 
     <Button
@@ -124,6 +147,9 @@
         android:layout_marginTop="10dp"
         android:padding="5dp"
         android:text="Cancel"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:backgroundTint="#0ED6B9"
         android:onClick="onClickBack" />
 
 </RelativeLayout>

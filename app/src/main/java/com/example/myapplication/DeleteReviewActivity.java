@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -75,6 +76,8 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
                                  delete_reviews.add("Review: " + (count + 1));
                                  review_keys.put("Review: " + (count + 1), get_review);
                                  label.setTextSize(20);
+                                 Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+                                 label.setTypeface(boldTypeface);
                                  label.setPadding(0, (i * 30), 0, 0);
                                  containerLayout.addView(label);
 
@@ -113,6 +116,11 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
 
                              }
                          }
+                    }
+
+                    if(i == 0){
+                        TextView tv = findViewById(R.id.review_title);
+                        tv.setText("You have not left any reviews!");
                     }
 
                     ArrayAdapter adapter = new ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, delete_reviews);

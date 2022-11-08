@@ -10,38 +10,58 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop= "60dp"
-        android:textSize = "30dp"
+        android:textSize = "40sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
         android:layout_marginBottom="30dp" />
 
     <Button
         android:id="@+id/leave_review"
-        android:layout_width="wrap_content"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/name"
         android:padding="5dp"
         android:text="Leave review"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:backgroundTint="#0ED6B9"
         android:onClick="onClickLeaveReview"
         />
 
     <Button
         android:id="@+id/delete_review"
-        android:layout_width="wrap_content"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/leave_review"
         android:padding="5dp"
         android:text="Delete review"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:backgroundTint="#0ED6B9"
         android:onClick="onClickDeleteReview"
         />
+
+    <TextView
+        android:id="@+id/review_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop= "20dp"
+        android:textSize = "30sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:layout_below="@id/delete_review"
+        android:text = "Reviews"/>
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below= "@+id/delete_review"
+        android:layout_below= "@+id/review_title"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
@@ -50,7 +70,6 @@
             android:id="@+id/container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             >
 
             <TextView
@@ -59,6 +78,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop= "30dp"
                 android:textSize = "20dp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-black"
                 />
 
         </RelativeLayout>
@@ -72,6 +93,9 @@
         android:layout_marginTop="10dp"
         android:padding="5dp"
         android:text="Back"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:backgroundTint="#0ED6B9"
         android:onClick="onClickBack" />
 
 

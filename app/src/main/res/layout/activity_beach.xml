@@ -10,7 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/back"
         android:layout_centerHorizontal="true"
-        android:textSize = "30dp"
+        android:textSize = "40dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
         android:layout_marginTop="20dp" />
 
     <TextView
@@ -41,37 +43,46 @@
 
     <Button
         android:id="@+id/route"
-        android:layout_width="wrap_content"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/read_review"
         android:layout_marginBottom="10dp"
         android:padding="5dp"
         android:text="Route to beach"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:backgroundTint="#0ED6B9"
         android:onClick="onClickRouteToBeach"
         />
 
     <Button
         android:id="@+id/read_review"
-        android:layout_width="wrap_content"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:padding="5dp"
         android:text="Reviews"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:backgroundTint="#0ED6B9"
         android:layout_above="@+id/find_restaurants"
         android:onClick="onClickReadReview"
         />
 
     <Button
         android:id="@+id/find_restaurants"
-        android:layout_width="wrap_content"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:padding="5dp"
         android:text="Find nearby restaurants"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:backgroundTint="#0ED6B9"
         android:onClick="onClickFindRestaurant"
         />
 
@@ -83,7 +94,10 @@
         android:layout_marginTop="10dp"
         android:onClick="onClickBack"
         android:padding="5dp"
-        android:text="Back" />
+        android:text="Back"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:backgroundTint="#0ED6B9"/>
 
 
 </RelativeLayout>

@@ -55,6 +55,9 @@ public class ViewRoutesActivity extends AppCompatActivity {
                                 TextView title = findViewById(R.id.title);
                                 title.setText("Saved routes");
 
+                                TextView route_title = findViewById(R.id.route_title);
+                                route_title.setText("Your saved routes");
+
                                 int i = 0;
                                 for (DataSnapshot route : check_user.getChildren()){
                                     String start = route.child("Start").getValue().toString();

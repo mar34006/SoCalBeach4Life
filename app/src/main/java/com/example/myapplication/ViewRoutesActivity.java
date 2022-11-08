@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,29 +61,40 @@ public class ViewRoutesActivity extends AppCompatActivity {
 
                                 int i = 0;
                                 for (DataSnapshot route : check_user.getChildren()){
+
                                     String start = route.child("Start").getValue().toString();
                                     String destination = route.child("Destination").getValue().toString();
                                     String time = route.child("Time").getValue().toString();
+                                    String date = route.child("Date").getValue().toString();
+
+                                    TextView dateText = new TextView(context);
+                                    dateText.setText(date);
+                                    dateText.setTextSize(20);
+                                    Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+                                    dateText.setTypeface(boldTypeface);
+                                    dateText.setPadding(0, (i * 15), 0, (i * 15));
+                                    containerLayout.addView(dateText);
+                                    i += 3;
+
+                                    TextView timeText = new TextView(context);
+                                    timeText.setText(time);
+                                    timeText.setTextSize(20);
+                                    timeText.setPadding(0, (i * 15), 0, (i * 15));
+                                    containerLayout.addView(timeText);
+                                    i += 3;
 
                                     TextView startText = new TextView(context);
                                     startText.setText(start);
                                     startText.setTextSize(20);
-                                    startText.setPadding(0, (i * 30), 0, 0);
+                                    startText.setPadding(0, (i * 15), 0, (i * 15));
                                     containerLayout.addView(startText);
                                     i += 3;
 
                                     TextView destinationText = new TextView(context);
                                     destinationText.setText(destination);
                                     destinationText.setTextSize(20);
-                                    destinationText.setPadding(0, (i * 30), 0, 0);
+                                    destinationText.setPadding(0, (i * 15), 0, (i * 15));
                                     containerLayout.addView(destinationText);
-                                    i += 3;
-
-                                    TextView timeText = new TextView(context);
-                                    timeText.setText(time);
-                                    timeText.setTextSize(20);
-                                    timeText.setPadding(0, (i * 30), 0, 0);
-                                    containerLayout.addView(timeText);
                                     i += 3;
 
                                     i += 3;

@@ -11,7 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop= "70dp"
-        android:textSize = "30dp"
+        android:textSize = "40dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
         android:layout_marginBottom="30dp" />
 
     <TextView
@@ -24,8 +26,10 @@
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
-        android:text="Please select the furthest distance you are willing to walk from the beach to a restaurant"
+        android:text="Please select the furthest distance you are willing to walk from the beach to a restaurant."
         android:textSize="20dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
         android:layout_below="@+id/name"/>
 
     <Button
@@ -38,6 +42,8 @@
         android:layout_marginRight="20dp"
         android:padding="5dp"
         android:text="1000 ft"
+        android:textColor="@color/white"
+        android:backgroundTint="#0ED6B9"
         android:onClick="onClickD1" />
 
     <Button
@@ -49,6 +55,8 @@
         android:padding="5dp"
         android:text="2000 ft"
         android:onClick="onClickD2"
+        android:textColor="@color/white"
+        android:backgroundTint="#0ED6B9"
         android:layout_below="@+id/distance_desc"/>
 
     <Button
@@ -61,6 +69,8 @@
         android:layout_marginLeft="20dp"
         android:padding="5dp"
         android:text="3000 ft"
+        android:textColor="@color/white"
+        android:backgroundTint="#0ED6B9"
         android:onClick="onClickD3"
 
         />
@@ -73,6 +83,8 @@
         android:layout_marginTop="10dp"
         android:onClick="onClickBack"
         android:padding="5dp"
+        android:textColor="@color/white"
+        android:backgroundTint="#0ED6B9"
         android:text="Back" />
 
 

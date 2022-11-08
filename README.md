@@ -1,4 +1,4 @@
-#Running the App
+# Running the App
 
 Simply import the project and run the app in an emulator.
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -86,6 +87,8 @@ public class ReadReviewActivity extends AppCompatActivity {
                             userText.setText(username);
                         }
                         userText.setTextSize(20);
+                        Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+                        userText.setTypeface(boldTypeface);
                         userText.setPadding(0, (i * 30), 0, 0);
                         containerLayout.addView(userText);
                         i += 3;

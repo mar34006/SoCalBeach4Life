@@ -331,7 +331,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String date = String.format("%d/%d/%d: ", currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH), currentTime.get(Calendar.YEAR));
                 String time1 = String.format("%02d:%02d", currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE));
                 String time2 = String.format("%02d:%02d", after.get(Calendar.HOUR_OF_DAY), after.get(Calendar.MINUTE));
-                String formattedDuration = date + time1 + " - " + time2 + " | Duration: " + duration;
+                String formattedDuration = "Date: " + date + time1 + " - " + time2 + "\nDuration: " + duration;
                 route.child("Time").setValue(formattedDuration); // GERARDO
 
                 TextView changeText = (TextView) view;

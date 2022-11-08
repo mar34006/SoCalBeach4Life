@@ -123,6 +123,10 @@ public class LeaveReviewActivity extends AppCompatActivity {
     }
 
     public void onClickBack(View view){
+        Intent intent = new Intent(this, ReadReviewActivity.class);
+        intent.putExtra("beach_name", beach_name);
+        intent.putExtra("user", user);
+        startActivity(intent);
         this.finish();
     }
 }

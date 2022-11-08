@@ -7,6 +7,16 @@
     tools:context=".ProfileActivity">
 
     <TextView
+        android:id="@+id/greeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="@id/firstName"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        />
+    <TextView
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +29,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="50dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="First Name:"
+        app:layout_constraintTop_toBottomOf="@id/banner"
+        app:layout_constraintLeft_toLeftOf="@id/firstName"
+        android:layout_marginTop="20dp"
+        android:textSize="15dp"
         />
 
     <EditText
@@ -36,6 +56,16 @@
 
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Name:"
+        app:layout_constraintTop_toBottomOf="@id/firstName"
+        app:layout_constraintLeft_toLeftOf="@id/firstName"
+        android:layout_marginTop="20dp"
+        android:textSize="15dp"
+        />
+
     <EditText
         android:id="@+id/lastName"
         android:layout_width="380dp"
@@ -51,19 +81,14 @@
 
         />
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="380dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:textSize="24sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastName"
-
+        android:text="Home Address:"
+        app:layout_constraintTop_toBottomOf="@id/lastName"
+        app:layout_constraintLeft_toLeftOf="@id/lastName"
+        android:layout_marginTop="20dp"
+        android:textSize="15dp"
         />
 
     <EditText
@@ -77,51 +102,50 @@
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/lastName"
 
         />
 
     <Button
         android:id="@+id/signOut"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Logout"
         android:backgroundTint="#0ED6B9"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="@id/updateInfo"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="15sp"
+        app:layout_constraintRight_toRightOf="@id/address"
+        app:layout_constraintLeft_toLeftOf="@id/address"
+        app:layout_constraintTop_toBottomOf="@id/viewRoutes"
 
         />
 
     <Button
         android:id="@+id/updateInfo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#0ED6B9"
         android:onClick="update"
         android:text="Update"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="@id/address"
+        app:layout_constraintRight_toRightOf="@id/address"
         app:layout_constraintTop_toBottomOf="@+id/address"
 
         />
 
     <Button
         android:id="@+id/viewRoutes"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#0ED6B9"
         android:onClick="onClickViewRoutes"
         android:text="View saved routes"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="@id/address"
+        app:layout_constraintRight_toRightOf="@id/address"
         app:layout_constraintTop_toBottomOf="@+id/updateInfo"
 
         />
@@ -134,7 +158,12 @@
         android:layout_marginTop="10dp"
         android:padding="5dp"
         android:text="Back"
-        android:onClick="onClickBack" />
+        android:backgroundTint="#0ED6B9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/banner"
+
+        android:onClick="onClickBack"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,6 +36,7 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
     DatabaseReference reference;
 
     String user;
+    String beach_name;
     Boolean forceDataChange = true;
     ArrayList<String> delete_reviews = new ArrayList<>();
     HashMap<String, DataSnapshot> review_keys = new HashMap<>();
@@ -53,6 +54,7 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
 
         Intent intent = getIntent();
         user = intent.getStringExtra("user");
+        beach_name = intent.getStringExtra("beach_name");
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -69,9 +71,9 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
                              if(get_review.child("User").getValue().equals(user)){
 
                                  TextView label = new TextView(context);
-                                 label.setText("Review: " + count + 1);
-                                 delete_reviews.add("Review: " + count + 1);
-                                 review_keys.put("Review: " + count + 1, get_review);
+                                 label.setText("Review: " + (count + 1));
+                                 delete_reviews.add("Review: " + (count + 1));
+                                 review_keys.put("Review: " + (count + 1), get_review);
                                  label.setTextSize(20);
                                  label.setPadding(0, (i * 30), 0, 0);
                                  containerLayout.addView(label);
@@ -154,6 +156,10 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
     }
 
     public void onClickBack(View view){
+        Intent intent = new Intent(this, ReadReviewActivity.class);
+        intent.putExtra("beach_name", beach_name);
+        intent.putExtra("user", user);
+        startActivity(intent);
         this.finish();
     }
 

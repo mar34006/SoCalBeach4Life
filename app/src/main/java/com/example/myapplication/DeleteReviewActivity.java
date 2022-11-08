@@ -67,53 +67,55 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
                     int i = 0;
                     int count = 0;
                     for (DataSnapshot check_beach : dataSnapshot.getChildren()) {
-                         DataSnapshot review_snap = check_beach.child("reviews");
-                         for (DataSnapshot get_review : review_snap.getChildren()){
-                             if(get_review.child("User").getValue().equals(user)){
+                         if(check_beach.getKey().equals(beach_name)){
+                             DataSnapshot review_snap = check_beach.child("reviews");
+                             for (DataSnapshot get_review : review_snap.getChildren()) {
+                                 if (get_review.child("User").getValue().equals(user)) {
 
-                                 TextView label = new TextView(context);
-                                 label.setText("Review: " + (count + 1));
-                                 delete_reviews.add("Review: " + (count + 1));
-                                 review_keys.put("Review: " + (count + 1), get_review);
-                                 label.setTextSize(20);
-                                 Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
-                                 label.setTypeface(boldTypeface);
-                                 label.setPadding(0, (i * 30), 0, 0);
-                                 containerLayout.addView(label);
+                                     TextView label = new TextView(context);
+                                     label.setText("Review: " + (count + 1));
+                                     delete_reviews.add("Review: " + (count + 1));
+                                     review_keys.put("Review: " + (count + 1), get_review);
+                                     label.setTextSize(20);
+                                     Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
+                                     label.setTypeface(boldTypeface);
+                                     label.setPadding(0, (i * 30), 0, 0);
+                                     containerLayout.addView(label);
 
-                                 i += 3;
-
-                                 String rating = get_review.child("Rating").getValue().toString();
-                                 String text_review = get_review.child("Review").getValue().toString();
-                                 String anonymous = get_review.child("Anonymous").getValue().toString();
-
-                                 TextView ratingText = new TextView(context);
-                                 ratingText.setText(rating + " stars");
-                                 ratingText.setTextSize(20);
-                                 ratingText.setPadding(0, (i * 30), 0, 0);
-                                 containerLayout.addView(ratingText);
-                                 i += 3;
-
-                                 if (!(text_review.equals(""))) {
-                                     TextView reviewText = new TextView(context);
-                                     reviewText.setText(text_review);
-                                     reviewText.setTextSize(20);
-                                     reviewText.setPadding(0, (i * 30), 0, 0);
-                                     containerLayout.addView(reviewText);
                                      i += 3;
+
+                                     String rating = get_review.child("Rating").getValue().toString();
+                                     String text_review = get_review.child("Review").getValue().toString();
+                                     String anonymous = get_review.child("Anonymous").getValue().toString();
+
+                                     TextView ratingText = new TextView(context);
+                                     ratingText.setText(rating + " stars");
+                                     ratingText.setTextSize(20);
+                                     ratingText.setPadding(0, (i * 30), 0, 0);
+                                     containerLayout.addView(ratingText);
+                                     i += 3;
+
+                                     if (!(text_review.equals(""))) {
+                                         TextView reviewText = new TextView(context);
+                                         reviewText.setText(text_review);
+                                         reviewText.setTextSize(20);
+                                         reviewText.setPadding(0, (i * 30), 0, 0);
+                                         containerLayout.addView(reviewText);
+                                         i += 3;
+                                     }
+
+                                     TextView anonymousText = new TextView(context);
+                                     anonymousText.setText("Anonymous review: " + anonymous.toString());
+                                     anonymousText.setTextSize(20);
+                                     anonymousText.setPadding(0, (i * 30), 0, 0);
+                                     containerLayout.addView(anonymousText);
+
+                                     i += 3;
+
+                                     i += 3;
+                                     count += 1;
+
                                  }
-
-                                 TextView anonymousText = new TextView(context);
-                                 anonymousText.setText("Anonymous review: " + anonymous.toString());
-                                 anonymousText.setTextSize(20);
-                                 anonymousText.setPadding(0, (i * 30), 0, 0);
-                                 containerLayout.addView(anonymousText);
-
-                                 i += 3;
-
-                                 i+=3;
-                                 count += 1;
-
                              }
                          }
                     }

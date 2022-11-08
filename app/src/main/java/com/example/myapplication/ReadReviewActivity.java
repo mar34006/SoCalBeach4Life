@@ -122,7 +122,12 @@ public class ReadReviewActivity extends AppCompatActivity {
                     DecimalFormat df = new DecimalFormat("0.00");
                     String avg_rating_string = df.format(avg_rating);
                     TextView view_avg_rating = findViewById(R.id.average_reviews);
-                    view_avg_rating.setText("Average rating: " + avg_rating_string + " stars");
+                    if(count != 0) {
+                        view_avg_rating.setText("Average rating: " + avg_rating_string + " stars");
+                    }
+                    else{
+                        view_avg_rating.setText("Average rating: None");
+                    }
 
                     TextView view_num_reviews = findViewById(R.id.num_reviews);
                     view_num_reviews.setText("Number of reviews: " + count);

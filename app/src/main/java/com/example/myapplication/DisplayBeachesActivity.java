@@ -253,6 +253,8 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
             me.remove();
         }
         me = mMap.addMarker(new MarkerOptions().position(loca).title("me").alpha(0.4f));
+        Toast.makeText(DisplayBeachesActivity.this, "Address loaded!", Toast.LENGTH_SHORT).show();
+
     }
 
     public void submitAddress(View v)

@@ -56,13 +56,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String actual_beach_name;
     String destination_restaurant_name;
     LatLng beach_dest;
+    String homeAddress = null;
+    LatLng home;
     LatLng a_home = null, a_dest = null;
     RestaurantPacks availableRestaurants;
-    double myLocation[] = new double[2];
 
     FirebaseDatabase root;
     DatabaseReference reference;
-    ArrayList<Beach> beaches = new ArrayList<Beach>();
 
     Boolean lotClicked = false;
     Boolean restaurantClicked = false;
@@ -92,18 +92,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String mode = intent.getStringExtra("mode");
         user = intent.getStringExtra("user");
         this.beach_name = intent.getStringExtra("name");
-        double loc[] = intent.getDoubleArrayExtra("loc");
         this.actual_beach_name = intent.getStringExtra("a_beach_name");
-        this.myLocation = intent.getDoubleArrayExtra("my_location");
+        double loc[] = intent.getDoubleArrayExtra("loc");
+        this.homeAddress = intent.getStringExtra("my_location");
         this.beach_dest = new LatLng(loc[0], loc[1]);
+
         if (mode.equals("beach lots")) {
             this.mode = Mode.LOTS;
             double lot1loc[] = intent.getDoubleArrayExtra("lot1");
             double lot2loc[] = intent.getDoubleArrayExtra("lot2");
             this.lot1 = new LatLng(lot1loc[0], lot1loc[1]);
             this.lot2 = new LatLng(lot2loc[0], lot2loc[1]);
-
-
+            double h_loc[] = intent.getDoubleArrayExtra("h_loc");
+            this.home = new LatLng(h_loc[0], h_loc[1]);
             // SAVE ROUTE DATA COLLECTION
             root = FirebaseDatabase.getInstance();
             reference = root.getReference("Users");
@@ -207,15 +208,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         Log.i("map", "map ready");
-        LatLng home;
-        if(myLocation != null)
-        {
-            home = new LatLng(myLocation[0], myLocation[1]);
-        }
-        else
-        {
-            home = new LatLng(34.0168108, -118.2717179);;
-        }
         LatLng dest1, dest2;
         if(mode == Mode.LOTS)
         {

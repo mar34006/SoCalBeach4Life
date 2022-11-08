@@ -31,4 +31,25 @@
         android:layout_marginBottom="25dp"
         android:onClick="onClickBeach"
         android:text="Choose Highlighted Beach" />
+
+    <EditText
+        android:id="@+id/editTextTextPostalAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/beach_go"
+        android:ems="10"
+        android:hint="Input starting address"
+        android:layout_marginBottom="80dp"
+        android:layout_marginLeft="60dp"
+        android:inputType="textPostalAddress" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/beach_go"
+        android:layout_marginBottom="80dp"
+        android:layout_marginLeft="270dp"
+        android:onClick="submitAddress"
+        android:text="Enter" />
 </RelativeLayout>

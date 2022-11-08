@@ -26,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
     String user;
     final double[] lot1 = new double[2];
     final double[] lot2 = new double[2];
+    String actual_address = null;
     double[] loc = new double[2];
+    double[] h_loc = new double[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         beach_name = intent.getStringExtra("beach_name");
         user = intent.getStringExtra("user");
+        h_loc = intent.getDoubleArrayExtra("h_loc");
+        actual_address = intent.getStringExtra("my_location");
 
         // Name
 
@@ -93,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("a_beach_name", actual_beach_name);
         Log.i("LOG DATA", String.format("lot1: (%f, %f)", lot1[0], lot1[1]));
         Log.i("LOG DATA", String.format("lot2: (%f, %f)", lot2[0], lot2[1]));
-        intent.putExtra("loc", loc);
+        intent.putExtra("h_loc", h_loc);
+        intent.putExtra("my_location", actual_address);
         startActivity(intent);
         //this.finish();
 

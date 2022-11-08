@@ -71,6 +71,7 @@ public class ReadReviewActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 int i = 0;
+                int extra = 0;
                 if(explicit_call) {
                     explicit_call = false;
                     for (DataSnapshot get_review : dataSnapshot.getChildren()) {
@@ -100,6 +101,7 @@ public class ReadReviewActivity extends AppCompatActivity {
                         containerLayout.addView(ratingText);
                         i += 3;
 
+                        extra = text_review.length()/100;
                         if (!(text_review.equals(""))) {
                             TextView reviewText = new TextView(context);
                             reviewText.setText(text_review);

@@ -39,6 +39,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, SetPolygons {
     private GoogleMap mMap;
@@ -306,16 +308,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } else {
                     reference.child("routes").setValue(true);
                 }
-
-                // GERARDO
-                // REPLACE "home", "destination", and "time" PLACEHOLDERS W ACTUAL VALUES
-                // THX
                 DatabaseReference route = reference.push();
                 Calendar currentTime = Calendar.getInstance();
                 Calendar after = Calendar.getInstance();
-                int minutes = Integer.valueOf(duration.replaceAll("[^0-9]", ""));
+                Pattern pattern = Pattern.compile("((\\d+)\\s+hour(s)?)?\\s*((\\d+)\\s+min(s)?)", Pattern.CASE_INSENSITIVE);
+                Matcher m = pattern.matcher(duration.trim());
+                int hours = 0, minutes = 0;
+                if(m.find())
+                {
+                    if(m.group(2) != null)
+                    {
+                        hours = Integer.valueOf(m.group(2));
+                    }
+                    if(m.group(5) != null) {
+                        minutes = Integer.valueOf(m.group(5));
+                    }
+                }
+                after.add(Calendar.HOUR_OF_DAY, hours);
                 after.add(Calendar.MINUTE, minutes);
-                route.child("Start").setValue("Last location: " + String.format("%f, %f", a_home.latitude, a_home.longitude)); //GERARDO
+                route.child("Start").setValue(this.homeAddress + ": " + String.format("%f, %f", a_home.latitude, a_home.longitude)); //GERARDO
                 route.child("Destination").setValue(actual_beach_name + ": " + String.format("%f, %f", a_dest.latitude, a_dest.longitude)); // GERARDO
                 String date = String.format("%d/%d/%d: ", currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH), currentTime.get(Calendar.YEAR));
                 String time1 = String.format("%02d:%02d", currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE));

@@ -99,6 +99,7 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
     double h_loc[] = new double[2];
     EditText address = null;
     Button submit = null;
+    Marker me = null;
 
 
     private GoogleMap mMap;
@@ -222,11 +223,14 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
     public void onClickBeach(View v)
     {
         if(selected_beach == null || homeAddress == null)
+        {
+            Toast.makeText(DisplayBeachesActivity.this, "Please input and search address and choose beach first!", Toast.LENGTH_SHORT).show();
             return;
+        }
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("beach_name", selected_beach);
         intent.putExtra("user", user);
-        intent.putExtra("home_loc", h_loc);
+        intent.putExtra("h_loc", h_loc);
         intent.putExtra("my_location", homeAddress);
         startActivity(intent);
     }
@@ -234,10 +238,21 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
 
     public void receivedLocation(LatLng loca)
     {
+        if(loca == null)
+        {
+            homeAddress = null;
+            Toast.makeText(DisplayBeachesActivity.this, "Improper Address, please try again!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Log.i("LOCATION RECEIVED", String.format("%f, %f", loca.latitude, loca.longitude));
         homeAddress = address.getText().toString().trim();
         h_loc[0] = loca.latitude;
         h_loc[1] = loca.longitude;
+        if(me != null)
+        {
+            me.remove();
+        }
+        me = mMap.addMarker(new MarkerOptions().position(loca).title("me").alpha(0.4f));
     }
 
     public void submitAddress(View v)

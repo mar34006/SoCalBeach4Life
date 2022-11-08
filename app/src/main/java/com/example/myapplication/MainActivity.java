@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("a_beach_name", actual_beach_name);
         Log.i("LOG DATA", String.format("lot1: (%f, %f)", lot1[0], lot1[1]));
         Log.i("LOG DATA", String.format("lot2: (%f, %f)", lot2[0], lot2[1]));
+        intent.putExtra("loc", loc);
         intent.putExtra("h_loc", h_loc);
         intent.putExtra("my_location", actual_address);
         startActivity(intent);

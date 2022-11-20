@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         startActivity(intent);
                     }
                     else {
-                        Toast.makeText(LoginActivity.this, "Failed to login, please check your credentials.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, R.string.login_failed_toast_text, Toast.LENGTH_LONG).show();
                     }
                     progressBar.setVisibility(View.GONE);
                 }

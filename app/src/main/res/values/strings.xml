@@ -2,4 +2,7 @@
     <string name="app_name">SoCalBeach4LifeReal</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_map_beaches">DisplayBeachesActivity</string>
+    <string name="login_failed_toast_text">Failed to login, please check your credentials.</string>
+    <string name="register_successful_toast">Registered successfully!</string>
+    <string name="register_failure_toast">Failed to register.</string>
 </resources>

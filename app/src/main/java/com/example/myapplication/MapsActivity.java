@@ -323,11 +323,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 after.add(Calendar.HOUR_OF_DAY, hours);
                 after.add(Calendar.MINUTE, minutes);
-<<<<<<< HEAD
-                route.child("Start").setValue(this.homeAddress + ": " + String.format("%f, %f", a_home.latitude, a_home.longitude)); //GERARDO
-                route.child("Destination").setValue(actual_beach_name + ": " + String.format("%f, %f", a_dest.latitude, a_dest.longitude)); // GERARDO
-                String date = String.format("%d/%d/%d: ", currentTime.get(Calendar.MONTH)+1, currentTime.get(Calendar.DAY_OF_MONTH), currentTime.get(Calendar.YEAR));
-=======
+
                 //route.child("Start").setValue(this.homeAddress + ": " + String.format("%f, %f", a_home.latitude, a_home.longitude)); //GERARDO
                 //route.child("Destination").setValue(actual_beach_name + ": " + String.format("%f, %f", a_dest.latitude, a_dest.longitude)); // GERARDO
 
@@ -335,7 +331,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 route.child("Destination").setValue(actual_beach_name); // GERARDO
 
                 String date = String.format("%d/%d/%d: ", currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH), currentTime.get(Calendar.YEAR));
->>>>>>> 6cc1e5d0640ec9f7969f19da162a400c2cebde8e
                 String time1 = String.format("%02d:%02d", currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE));
                 String time2 = String.format("%02d:%02d", after.get(Calendar.HOUR_OF_DAY), after.get(Calendar.MINUTE));
                 String formattedDuration = time1 + " - " + time2 + " | Duration: " + duration;

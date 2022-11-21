@@ -5,4 +5,5 @@
     <string name="login_failed_toast_text">Failed to login, please check your credentials.</string>
     <string name="register_successful_toast">Registered successfully!</string>
     <string name="register_failure_toast">Failed to register.</string>
+    <string name="forgot_password_successful_toast">Check your email to reset your password</string>
 </resources>

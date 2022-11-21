@@ -100,6 +100,7 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
     EditText address = null;
     Button submit = null;
     Marker me = null;
+    View mapView;
 
 
     private GoogleMap mMap;
@@ -115,7 +116,8 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
         setContentView(R.layout.activity_display_beaches);
         FragmentManager support = getSupportFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) support.findFragmentById(R.id.beaches_map);
-
+        mapView = mapFragment.getView();
+        mapView.setContentDescription("MAP NOT READY");
         Button toProfileBtn = (Button)findViewById(R.id.profilePage);
 
         toProfileBtn.setOnClickListener(new View.OnClickListener() {
@@ -202,6 +204,7 @@ public class DisplayBeachesActivity extends AppCompatActivity implements OnMapRe
             addLocationMarker(b.getLat(), b.getLong(), b.getName(), hours, b.hidden_name);
             Log.i("BEACH DISPLAY", String.format("%s: (%f, %f)", b.getName(), b.getLat(), b.getLong()));
         }
+        mapView.setContentDescription("MAP READY");
         LatLng home = new LatLng(34.0168108, -118.2717179);
         moveToLocationZoom(home.latitude, home.longitude, 10.0f);
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {

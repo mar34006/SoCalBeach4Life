@@ -52,6 +52,7 @@ import androidx.test.espresso.intent.rule.IntentsTestRule;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -84,6 +85,27 @@ public class RegisterActivityAndroidTestEspresso
         });
     }
 
+    String generateRandomString(int length)
+    {
+        Random random = new Random();
+        String str = "";
+        for(int i = 0; i < length; i++)
+        {
+            str += (char)(random.nextInt(122-97)+97);
+        }
+        return str;
+    }
+
+    String randomEmail()
+    {
+        Random random = new Random();
+        int name_len = random.nextInt(10-1)+1;
+        int domain_len = random.nextInt(10-1)+1;
+        String name = generateRandomString(name_len);
+        String domain = generateRandomString(domain_len);
+        return name + "@" + domain + ".com";
+    }
+
     @Test
     public void Test_Register() {
         // Type text and then press the button.
@@ -94,7 +116,7 @@ public class RegisterActivityAndroidTestEspresso
         onView(withId(R.id.lastName))
                 .perform(typeText(LNAME), closeSoftKeyboard());
         onView(withId(R.id.email))
-                .perform(typeText(EMAIL), closeSoftKeyboard());
+                .perform(typeText(randomEmail()), closeSoftKeyboard());
         onView(withId(R.id.address))
                 .perform(typeText(ADDR), closeSoftKeyboard());
         onView(withId(R.id.password))
@@ -112,6 +134,7 @@ public class RegisterActivityAndroidTestEspresso
         }
         intended(hasComponent(LoginActivity.class.getName()));
         onView(withText(R.string.register_successful_toast)).inRoot(withDecorView(Matchers.not(decorView)));
+        Intents.release();
     }
 
     @Test
@@ -150,5 +173,6 @@ public class RegisterActivityAndroidTestEspresso
             }
         }
         onView(withText(R.string.register_failure_toast)).inRoot(withDecorView(Matchers.not(decorView)));
+        Intents.release();
     }
 }

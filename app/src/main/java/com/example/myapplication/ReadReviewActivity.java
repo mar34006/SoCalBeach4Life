@@ -104,14 +104,12 @@ public class ReadReviewActivity extends AppCompatActivity {
                         containerLayout.addView(ratingText);
                         i += 3;
 
-                        if (!(text_review.equals(""))) {
-                            TextView reviewText = new TextView(context);
-                            reviewText.setText(text_review);
-                            reviewText.setTextSize(20);
-                            reviewText.setPadding(0, (i * 30), 0, 0);
-                            containerLayout.addView(reviewText);
-                            i += 3;
-                        }
+                        TextView reviewText = new TextView(context);
+                        reviewText.setText(text_review);
+                        reviewText.setTextSize(20);
+                        reviewText.setPadding(0, (i * 30), 0, 0);
+                        containerLayout.addView(reviewText);
+                        i += 3;
 
                         count += 1;
                         i += 3;

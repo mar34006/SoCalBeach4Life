@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ReadReviewActivity extends AppCompatActivity {
@@ -71,6 +72,8 @@ public class ReadReviewActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 int i = 0;
+                int count = 0;
+                double avg_rating = 0;
                 if(explicit_call) {
                     explicit_call = false;
                     for (DataSnapshot get_review : dataSnapshot.getChildren()) {
@@ -94,6 +97,7 @@ public class ReadReviewActivity extends AppCompatActivity {
                         i += 3;
 
                         TextView ratingText = new TextView(context);
+                        avg_rating += Integer.parseInt(rating);
                         ratingText.setText(rating + " stars");
                         ratingText.setTextSize(20);
                         ratingText.setPadding(0, (i * 30), 0, 0);
@@ -109,9 +113,25 @@ public class ReadReviewActivity extends AppCompatActivity {
                             i += 3;
                         }
 
+                        count += 1;
                         i += 3;
 
                     }
+
+                    avg_rating = avg_rating/count;
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    String avg_rating_string = df.format(avg_rating);
+                    TextView view_avg_rating = findViewById(R.id.average_reviews);
+                    if(count != 0) {
+                        view_avg_rating.setText("Average rating: " + avg_rating_string + " stars");
+                    }
+                    else{
+                        view_avg_rating.setText("Average rating: None");
+                    }
+
+                    TextView view_num_reviews = findViewById(R.id.num_reviews);
+                    view_num_reviews.setText("Number of reviews: " + count);
+
                 }
             }
             @Override

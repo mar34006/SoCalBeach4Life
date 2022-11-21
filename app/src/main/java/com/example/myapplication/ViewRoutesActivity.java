@@ -72,28 +72,28 @@ public class ViewRoutesActivity extends AppCompatActivity {
                                     dateText.setTextSize(20);
                                     Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
                                     dateText.setTypeface(boldTypeface);
-                                    dateText.setPadding(0, (i * 15), 0, (i * 15));
+                                    dateText.setPadding(0, (i * 30), 0, 0);
                                     containerLayout.addView(dateText);
                                     i += 3;
 
                                     TextView timeText = new TextView(context);
                                     timeText.setText(time);
                                     timeText.setTextSize(20);
-                                    timeText.setPadding(0, (i * 15), 0, (i * 15));
+                                    timeText.setPadding(0, (i * 30), 0, 0);
                                     containerLayout.addView(timeText);
                                     i += 3;
 
                                     TextView startText = new TextView(context);
-                                    startText.setText(start);
+                                    startText.setText("Start: " + start);
                                     startText.setTextSize(20);
-                                    startText.setPadding(0, (i * 15), 0, (i * 15));
+                                    startText.setPadding(0, (i * 30), 0, 0);
                                     containerLayout.addView(startText);
                                     i += 3;
 
                                     TextView destinationText = new TextView(context);
-                                    destinationText.setText(destination);
+                                    destinationText.setText("Destination: " + destination);
                                     destinationText.setTextSize(20);
-                                    destinationText.setPadding(0, (i * 15), 0, (i * 15));
+                                    destinationText.setPadding(0, (i * 30), 0, 0);
                                     containerLayout.addView(destinationText);
                                     i += 3;
 

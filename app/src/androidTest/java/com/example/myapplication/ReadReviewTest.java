@@ -76,6 +76,9 @@ public class ReadReviewTest {
                 break;
             }
         }
+
+        // If pass1 is not true, then the review does not exist in the database.
+        // Thus, the test should fail
         if(!pass1){
             onView(withText("True")).check(matches(withText("False")));
         }

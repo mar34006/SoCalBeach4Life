@@ -329,12 +329,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 route.child("Start").setValue(this.homeAddress); //GERARDO
                 route.child("Destination").setValue(actual_beach_name); // GERARDO
 
-                String date = String.format("%d/%d/%d: ", currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH), currentTime.get(Calendar.YEAR));
-                String time1 = String.format("%02d:%02d", currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE));
-                String time2 = String.format("%02d:%02d", after.get(Calendar.HOUR_OF_DAY), after.get(Calendar.MINUTE));
-                String formattedDuration = time1 + " - " + time2 + " | Duration: " + duration;
-                route.child("Date").setValue(date);
-                route.child("Time").setValue(formattedDuration); // GERARDO
+                DateAndTimeFormatter formatter = new DateAndTimeFormatter();
+                ArrayList<String> info = formatter.get_info(hours, minutes, duration);
+
+                route.child("Date").setValue(info.get(0));
+                route.child("Time").setValue(info.get(1)); // GERARDO
 
                 TextView changeText = (TextView) view;
                 changeText.setText("Route saved!");

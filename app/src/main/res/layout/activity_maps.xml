@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -16,21 +17,20 @@
         android:id="@+id/map_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="15dp"
-        android:onClick="onClickBack"/>
+        android:layout_marginTop="30dp"
+        android:onClick="onClickBack"
+        android:text="Back" />
 
     <Button
         android:id="@+id/saveRoute"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:padding="5dp"
-        android:text= "Select a lot to begin routing"
         android:onClick="onClickSaveRoute"
-        />
+        android:padding="5dp"
+        android:text="Select a lot to begin routing" />
 
 </RelativeLayout>

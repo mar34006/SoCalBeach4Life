@@ -45,16 +45,15 @@
         android:id="@+id/route"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_above="@+id/read_review"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
+        android:backgroundTint="#0ED6B9"
+        android:onClick="onClickRouteToBeach"
         android:padding="5dp"
         android:text="Route to beach"
         android:textColor="@color/white"
-        android:textSize="15sp"
-        android:backgroundTint="#0ED6B9"
-        android:onClick="onClickRouteToBeach"
-        />
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/read_review"

@@ -323,6 +323,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 after.add(Calendar.HOUR_OF_DAY, hours);
                 after.add(Calendar.MINUTE, minutes);
+
                 //route.child("Start").setValue(this.homeAddress + ": " + String.format("%f, %f", a_home.latitude, a_home.longitude)); //GERARDO
                 //route.child("Destination").setValue(actual_beach_name + ": " + String.format("%f, %f", a_dest.latitude, a_dest.longitude)); // GERARDO
 

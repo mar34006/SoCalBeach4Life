@@ -41,8 +41,8 @@ public class ProfileActivity extends AppCompatActivity {
         banner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // When user clicks on logout, it redirects them to the main activity
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                // When user clicks on banner, it redirects them to the main activity
+                onClickBack(view);
             }
         });
 

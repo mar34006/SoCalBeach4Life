@@ -64,11 +64,9 @@ public class ForgotPasswordActivityAndroidTestEspresso {
         });
     }
 
-    // getting the hang of espresso test case
+
     @Test
-    public void bannerIsDisplayedBelowBackButton()
-    {
-        onView(withText("SoCalBeach4Life")).check(matches(isDisplayed()));
+    public void bannerIsCompletelyBelowBackButton() {
         onView(withText("SoCalBeach4Life")).check(isCompletelyBelow(withId(R.id.back)));
     }
 
@@ -96,6 +94,7 @@ public class ForgotPasswordActivityAndroidTestEspresso {
                 .inRoot(withDecorView(Matchers.not(decorView)))
                 .check(matches(isDisplayed()));
     }
+
 
     @Test
     public void sendForgotPasswordEmail()

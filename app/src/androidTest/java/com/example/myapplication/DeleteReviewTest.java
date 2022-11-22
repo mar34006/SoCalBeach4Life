@@ -88,9 +88,12 @@ public class DeleteReviewTest {
             }
         }
 
-        onView(withId(R.id.spinner)).perform(click());
-        onData(hasToString(selection1)).perform(click());
-        onView(withId(R.id.delete_button)).perform(click());
-
+        // If selection1 is not empty, we were able to find the review to delete
+        // If we reach the end of the if-block, we are able to delete the review
+        if(selection1 != "") {
+            onView(withId(R.id.spinner)).perform(click());
+            onData(hasToString(selection1)).perform(click());
+            onView(withId(R.id.delete_button)).perform(click());
+        }
     }
 }

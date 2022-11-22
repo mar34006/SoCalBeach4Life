@@ -73,7 +73,7 @@ public class ReadReviewActivity extends AppCompatActivity {
 
                 int i = 0;
                 int count = 0;
-                double avg_rating = 0;
+                double total_rating = 0;
                 if(explicit_call) {
                     explicit_call = false;
                     for (DataSnapshot get_review : dataSnapshot.getChildren()) {
@@ -97,7 +97,7 @@ public class ReadReviewActivity extends AppCompatActivity {
                         i += 3;
 
                         TextView ratingText = new TextView(context);
-                        avg_rating += Integer.parseInt(rating);
+                        total_rating += Integer.parseInt(rating);
                         ratingText.setText(rating + " stars");
                         ratingText.setTextSize(20);
                         ratingText.setPadding(0, (i * 30), 0, 0);
@@ -116,16 +116,11 @@ public class ReadReviewActivity extends AppCompatActivity {
 
                     }
 
-                    avg_rating = avg_rating/count;
-                    DecimalFormat df = new DecimalFormat("0.00");
-                    String avg_rating_string = df.format(avg_rating);
+                    AverageCalculator calc = new AverageCalculator();
+                    String display = calc.calculate(total_rating, count);
+
                     TextView view_avg_rating = findViewById(R.id.average_reviews);
-                    if(count != 0) {
-                        view_avg_rating.setText("Average rating: " + avg_rating_string + " stars");
-                    }
-                    else{
-                        view_avg_rating.setText("Average rating: None");
-                    }
+                    view_avg_rating.setText(display);
 
                     TextView view_num_reviews = findViewById(R.id.num_reviews);
                     view_num_reviews.setText("Number of reviews: " + count);

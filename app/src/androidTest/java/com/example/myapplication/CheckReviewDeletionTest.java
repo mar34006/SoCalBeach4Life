@@ -76,6 +76,9 @@ public class CheckReviewDeletionTest {
                 break;
             }
         }
+
+        // If pass1 is True, then the review still exists in the database.
+        // Thus, the test should fail
         if(pass1){
             onView(withText("True")).check(matches(withText("False")));
         }

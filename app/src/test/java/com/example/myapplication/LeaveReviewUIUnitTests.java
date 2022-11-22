@@ -76,6 +76,13 @@ public class LeaveReviewUIUnitTests {
     }
 
     @Test
+    public void rating_is_correct_5() {
+        onClickMinus();
+        onClickMinus();
+        assertEquals(1, get_rating());
+    }
+
+    @Test
     public void anon_is_correct_1() {
         onClickAnon();
         assertEquals(false, get_anon());
@@ -84,6 +91,15 @@ public class LeaveReviewUIUnitTests {
     @Test
     public void anon_is_correct_2() {
         onClickAnon();
+        onClickAnon();
+        assertEquals(true, get_anon());
+    }
+
+    @Test
+    public void anon_is_correct_3() {
+        onClickPlus();
+        onClickAnon();
+        assertEquals(2, get_rating());
         onClickAnon();
         assertEquals(true, get_anon());
     }

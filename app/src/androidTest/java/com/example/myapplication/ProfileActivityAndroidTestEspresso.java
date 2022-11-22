@@ -256,6 +256,7 @@ public class ProfileActivityAndroidTestEspresso {
         onView(withId(R.id.profilePage)).perform(click());
         onView(withId(R.id.viewRoutes)).perform(click());
 
+        onView(withText("Start: USC")).inRoot(withDecorView(Matchers.not(decorView)));
         onView(withText("Destination: Venice Beach")).inRoot(withDecorView(Matchers.not(decorView)));
     }
 

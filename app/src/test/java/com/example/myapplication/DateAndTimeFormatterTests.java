@@ -57,4 +57,76 @@ public class DateAndTimeFormatterTests {
 
     }
 
+    @Test
+    public void date_and_time_format_is_correct_3() {
+
+        int hours = 1;
+        int minutes = 2;
+        String duration = "1 hour 2 mins";
+
+        DateAndTimeFormatter formatter = new DateAndTimeFormatter();
+        ArrayList<String> info = formatter.get_info(hours, minutes, duration);
+
+        Calendar currentTime = Calendar.getInstance();
+        String date = String.format("%d/%d/%d: ", currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH), currentTime.get(Calendar.YEAR));
+        assertEquals(date, info.get(0));
+
+        Calendar after = Calendar.getInstance();
+        after.add(Calendar.HOUR_OF_DAY, hours);
+        after.add(Calendar.MINUTE, minutes);
+        String time1 = String.format("%02d:%02d", currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE));
+        String time2 = String.format("%02d:%02d", after.get(Calendar.HOUR_OF_DAY), after.get(Calendar.MINUTE));
+        String trip_duration = time1 + " - " + time2 + " | Duration: " + duration;
+        assertEquals(trip_duration, info.get(1));
+
+    }
+
+    @Test
+    public void date_and_time_format_is_correct_4() {
+
+        int hours = 23;
+        int minutes = 59;
+        String duration = "23 hour 59 mins";
+
+        DateAndTimeFormatter formatter = new DateAndTimeFormatter();
+        ArrayList<String> info = formatter.get_info(hours, minutes, duration);
+
+        Calendar currentTime = Calendar.getInstance();
+        String date = String.format("%d/%d/%d: ", currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH), currentTime.get(Calendar.YEAR));
+        assertEquals(date, info.get(0));
+
+        Calendar after = Calendar.getInstance();
+        after.add(Calendar.HOUR_OF_DAY, hours);
+        after.add(Calendar.MINUTE, minutes);
+        String time1 = String.format("%02d:%02d", currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE));
+        String time2 = String.format("%02d:%02d", after.get(Calendar.HOUR_OF_DAY), after.get(Calendar.MINUTE));
+        String trip_duration = time1 + " - " + time2 + " | Duration: " + duration;
+        assertEquals(trip_duration, info.get(1));
+
+    }
+
+    @Test
+    public void date_and_time_format_is_correct_5() {
+
+        int hours = 1;
+        int minutes = 0;
+        String duration = "1 hour 0 mins";
+
+        DateAndTimeFormatter formatter = new DateAndTimeFormatter();
+        ArrayList<String> info = formatter.get_info(hours, minutes, duration);
+
+        Calendar currentTime = Calendar.getInstance();
+        String date = String.format("%d/%d/%d: ", currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH), currentTime.get(Calendar.YEAR));
+        assertEquals(date, info.get(0));
+
+        Calendar after = Calendar.getInstance();
+        after.add(Calendar.HOUR_OF_DAY, hours);
+        after.add(Calendar.MINUTE, minutes);
+        String time1 = String.format("%02d:%02d", currentTime.get(Calendar.HOUR_OF_DAY), currentTime.get(Calendar.MINUTE));
+        String time2 = String.format("%02d:%02d", after.get(Calendar.HOUR_OF_DAY), after.get(Calendar.MINUTE));
+        String trip_duration = time1 + " - " + time2 + " | Duration: " + duration;
+        assertEquals(trip_duration, info.get(1));
+
+    }
+
 }

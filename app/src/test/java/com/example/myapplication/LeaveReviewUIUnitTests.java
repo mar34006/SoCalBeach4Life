@@ -12,6 +12,9 @@ public class LeaveReviewUIUnitTests {
     Integer rating = 1;
     Boolean anonymous = true;
 
+    // Functions taken from LeaveReviewActivity
+    // The only think changed is the commented parts
+
     private void onClickMinus(){
         if (rating != 1){
             rating -= 1;

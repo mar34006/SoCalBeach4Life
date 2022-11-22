@@ -25,17 +25,19 @@ import com.google.firebase.database.DataSnapshot;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.Calendar;
+
 public class DeleteReviewTests {
 
     public static final String STRING_TO_BE_DISPLAYED_REVIEW1 = "ceuhpowjidnjhru$3ugg2";
     public static final String STRING_TO_BE_DISPLAYED_RATING1 = "4 stars";
     public static final String STRING_TO_BE_DISPLAYED_ANONYMOUS1 = "Anonymous review: true";
-    String selection1;
+    String selection1 = "";
 
     public static final String STRING_TO_BE_DISPLAYED_REVIEW2 = "uhwqoijdio38jfhu38h";
     public static final String STRING_TO_BE_DISPLAYED_RATING2 = "3 stars";
     public static final String STRING_TO_BE_DISPLAYED_ANONYMOUS2 = "Anonymous review: false";
-    String selection2;
+    String selection2 = "";
 
     static Intent delete_intent;
     static {
@@ -62,9 +64,15 @@ public class DeleteReviewTests {
         RelativeLayout container = getCurrentActivity().findViewById(R.id.container);
         Integer size = container.getChildCount();
 
+        long then = System.currentTimeMillis();
+        then += 6000;
         while(size == 1){
             container = getCurrentActivity().findViewById(R.id.container);
             size = container.getChildCount();
+            long now = System.currentTimeMillis();
+            if(now > then){
+                break;
+            }
         }
 
         Integer i = 1;
@@ -95,11 +103,12 @@ public class DeleteReviewTests {
 
         // If selection1 is not empty, we were able to find the review to delete
         // If we reach the end of the if-block, we are able to delete the review
-        if(selection1 != "") {
+        if(!selection1.equals("")){
             onView(withId(R.id.spinner)).perform(click());
             onData(hasToString(selection1)).perform(click());
             onView(withId(R.id.delete_button)).perform(click());
         }
+
     }
 
     @Test
@@ -108,9 +117,15 @@ public class DeleteReviewTests {
         RelativeLayout container = getCurrentActivity().findViewById(R.id.container);
         Integer size = container.getChildCount();
 
+        long then = System.currentTimeMillis();
+        then += 6000;
         while(size == 1){
             container = getCurrentActivity().findViewById(R.id.container);
             size = container.getChildCount();
+            long now = System.currentTimeMillis();
+            if(now > then){
+                break;
+            }
         }
 
         Integer i = 1;
@@ -141,7 +156,7 @@ public class DeleteReviewTests {
 
         // If selection1 is not empty, we were able to find the review to delete
         // If we reach the end of the if-block, we are able to delete the review
-        if(selection2 != "") {
+        if(!selection2.equals("")) {
             onView(withId(R.id.spinner)).perform(click());
             onData(hasToString(selection2)).perform(click());
             onView(withId(R.id.delete_button)).perform(click());

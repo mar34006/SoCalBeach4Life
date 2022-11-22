@@ -50,9 +50,10 @@ import java.text.DecimalFormat;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class LeaveReviewTest {
+public class LeaveReviewTests {
 
     public static final String STRING_TO_BE_TYPED_REVIEW1 = "ceuhpowjidnjhru$3ugg2";
+    public static final String STRING_TO_BE_TYPED_REVIEW2 = "uhwqoijdio38jfhu38h";
 
     /**
      * Use {@link ActivityScenarioRule} to create and launch the activity under test, and close it
@@ -79,6 +80,20 @@ public class LeaveReviewTest {
         onView(withId(R.id.plus)).perform(click());
         onView(withId(R.id.plus)).perform(click());
         onView(withId(R.id.plus)).perform(click());
+
+        onView(withId(R.id.leave_rev)).perform(click());
+    }
+
+    @Test
+    public void LeaveReview() {
+
+        onView(withId(R.id.inputText))
+                .perform(typeText(STRING_TO_BE_TYPED_REVIEW2), closeSoftKeyboard());
+
+        onView(withId(R.id.plus)).perform(click());
+        onView(withId(R.id.plus)).perform(click());
+
+        onView(withId(R.id.anon)).perform(click());
 
         onView(withId(R.id.leave_rev)).perform(click());
     }

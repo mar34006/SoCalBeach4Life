@@ -155,11 +155,13 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = String.valueOf(spinner.getSelectedItem());
-                DataSnapshot key = review_keys.get(text);
-                key.getRef().removeValue();
-                View backView = findViewById(R.id.back);
-                onClickBack(backView);
+                if(delete_reviews.size() != 0) {
+                    String text = String.valueOf(spinner.getSelectedItem());
+                    DataSnapshot key = review_keys.get(text);
+                    key.getRef().removeValue();
+                    View backView = findViewById(R.id.back);
+                    onClickBack(backView);
+                }
             }
         });
     }

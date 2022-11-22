@@ -42,11 +42,11 @@ import java.text.DecimalFormat;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class CheckGingerRogersInfoTest {
+public class CheckRedondoInfoTest {
 
-    public static final String STRING_TO_BE_DISPLAYED_TITLE= "Ginger Rogers Beach";
-    public static final String STRING_TO_BE_DISPLAYED_HOURS = "4am-12am" + "\n" + "14710 CA-1, Santa Monica, CA 90402";
-    public static final String STRING_TO_BE_DISPLAYED_DESCRIPTION = "Just south of Entrada and across from Patrick's Roadhouse Grill. Here, the beach tends to be less crowded and always has a good vibe. The recent rating on the water quality is A+, and there are a nearby lifeguard stand and public restrooms.";
+    public static final String STRING_TO_BE_DISPLAYED_TITLE= "Redondo Beach";
+    public static final String STRING_TO_BE_DISPLAYED_HOURS = "12am-12am" + "\n" + "Fisherman's Wharf, Fishermans Wharf, Redondo Beach, CA 90277";
+    public static final String STRING_TO_BE_DISPLAYED_DESCRIPTION = "Redondo Beach is great for swimming, surfing, and windsurfing and the horseshoe-shaped pier is good for fishing and has many restaurants and shops.";
 
     /**
      * Use {@link ActivityScenarioRule} to create and launch the activity under test, and close it
@@ -60,7 +60,7 @@ public class CheckGingerRogersInfoTest {
 
     static {
         intent = new Intent(ApplicationProvider.getApplicationContext(), MainActivity.class);
-        intent.putExtra("beach_name", "will rogers");
+        intent.putExtra("beach_name", "redondo beach");
         intent.putExtra("user", "m@r.com");
         intent.putExtra("h_loc", h_loc);
         intent.putExtra("home", home);
@@ -70,7 +70,7 @@ public class CheckGingerRogersInfoTest {
     public ActivityScenarioRule<MainActivity> checkBeachScenarioRule
             = new ActivityScenarioRule<>(intent);
 
-    private Activity getGingerActivity() {
+    private Activity getRedondoActivity() {
         final Activity[] a = new Activity[1];
         checkBeachScenarioRule.getScenario().onActivity(activity -> {
             a[0] = activity;
@@ -79,12 +79,12 @@ public class CheckGingerRogersInfoTest {
     }
 
     @Test
-    public void CheckGingerRogers() {
+    public void CheckRedondo() {
 
-        TextView name_view = getGingerActivity().findViewById(R.id.beach_title);
+        TextView name_view = getRedondoActivity().findViewById(R.id.beach_title);
         String name = name_view.getText().toString();
         while (name.equals("")) {
-            name_view = getGingerActivity().findViewById(R.id.beach_title);
+            name_view = getRedondoActivity().findViewById(R.id.beach_title);
             name = name_view.getText().toString();
         }
 
@@ -94,4 +94,3 @@ public class CheckGingerRogersInfoTest {
     }
 
 }
-

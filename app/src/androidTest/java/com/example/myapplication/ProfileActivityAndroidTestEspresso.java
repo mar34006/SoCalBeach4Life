@@ -28,6 +28,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import org.hamcrest.Matchers;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,8 +39,8 @@ import org.junit.runner.RunWith;
 @LargeTest
 public class ProfileActivityAndroidTestEspresso {
     @Rule
-    public ActivityScenarioRule<ProfileActivity> activityScenarioRule
-            = new ActivityScenarioRule<>(ProfileActivity.class);
+    public ActivityScenarioRule<LoginActivity> activityScenarioRule
+            = new ActivityScenarioRule<>(LoginActivity.class);
 
     private View decorView;
 
@@ -56,11 +57,11 @@ public class ProfileActivityAndroidTestEspresso {
         Drawable notAnimatedDrawable = ContextCompat.getDrawable(getCurrentActivity(), com.google.firebase.database.collection.R.drawable.common_google_signin_btn_text_light_normal_background);
         ((ProgressBar) getCurrentActivity().findViewById(R.id.progressBar)).setIndeterminateDrawable(notAnimatedDrawable);
         onView(withId(R.id.email))
-                .perform(typeText("j@gmail.om"), closeSoftKeyboard());
+                .perform(typeText("j@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.password))
                 .perform(typeText("123456"), closeSoftKeyboard());
         onView(withId(R.id.signIn)).perform(click());
-        Intents.init();
+
         Boolean done = false;
         while(!done)
         {
@@ -72,37 +73,65 @@ public class ProfileActivityAndroidTestEspresso {
         }
 
         intended(hasComponent(DisplayBeachesActivity.class.getName()));
-        Intents.release();
     }
 
     @Before
     public void setUp() {
+        Intents.init();
         activityScenarioRule.getScenario().onActivity(activity ->
         {
             decorView = activity.getWindow().getDecorView();
         });
     }
 
+    @After
+    public void tearDown() {
+        Intents.release();
+    }
+
     @Test
     public void clickingUpdateWithoutModifying() {
         login();
         onView(withId(R.id.profilePage)).perform(click());
+        onView(withId(R.id.updateInfo)).perform(click());
 
     }
 
     @Test
     public void modifyingFirstName() {
+        login();
+        onView(withId(R.id.profilePage)).perform(click());
+
+        onView(withId(R.id.firstName))
+                .perform(typeText("e"), closeSoftKeyboard());
+
+        onView(withId(R.id.updateInfo)).perform(click());
+        onView(withText(R.string.data_updated_successful_toast)).inRoot(withDecorView(Matchers.not(decorView)));
 
     }
 
     @Test
     public void modifyingLastName() {
+        login();
+        onView(withId(R.id.profilePage)).perform(click());
 
+        onView(withId(R.id.lastName))
+                .perform(typeText("e"), closeSoftKeyboard());
+
+        onView(withId(R.id.updateInfo)).perform(click());
+        onView(withText(R.string.data_updated_successful_toast)).inRoot(withDecorView(Matchers.not(decorView)));
     }
 
     @Test
     public void modifyingAddress() {
+        login();
+        onView(withId(R.id.profilePage)).perform(click());
 
+        onView(withId(R.id.address))
+                .perform(typeText("e"), closeSoftKeyboard());
+
+        onView(withId(R.id.updateInfo)).perform(click());
+        onView(withText(R.string.data_updated_successful_toast)).inRoot(withDecorView(Matchers.not(decorView)));
     }
 
 

@@ -25,7 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class DeleteReviewTest {
+public class DeleteReviewTests {
 
     public static final String STRING_TO_BE_DISPLAYED_REVIEW1 = "ceuhpowjidnjhru$3ugg2";
     public static final String STRING_TO_BE_DISPLAYED_RATING1 = "4 stars";

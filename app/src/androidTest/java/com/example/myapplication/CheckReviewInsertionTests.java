@@ -19,7 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class CheckReviewDeletionTest {
+public class CheckReviewInsertionTests {
 
     public static final String STRING_TO_BE_DISPLAYED_REVIEW1 = "ceuhpowjidnjhru$3ugg2";
     public static final String STRING_TO_BE_DISPLAYED_RATING1 = "4 stars";
@@ -52,7 +52,7 @@ public class CheckReviewDeletionTest {
     }
 
     @Test
-    public void ReadReview() {
+    public void ReadAnonymousReview() {
 
         TextView name_view = getCurrentActivity().findViewById(R.id.name);
         String name = name_view.getText().toString();
@@ -84,15 +84,15 @@ public class CheckReviewDeletionTest {
             }
         }
 
-        // If pass1 is True, then the review still exists in the database.
+        // If pass1 is not true, then the review does not exist in the database.
         // Thus, the test should fail
-        if(pass1){
+        if(!pass1){
             onView(withText("True")).check(matches(withText("False")));
         }
     }
 
     @Test
-    public void ReadAnonymousReview() {
+    public void ReadReview() {
 
         TextView name_view = getCurrentActivity().findViewById(R.id.name);
         String name = name_view.getText().toString();
@@ -124,11 +124,10 @@ public class CheckReviewDeletionTest {
             }
         }
 
-        // If pass1 is True, then the review still exists in the database.
+        // If pass1 is not true, then the review does not exist in the database.
         // Thus, the test should fail
-        if(pass2){
+        if(!pass2){
             onView(withText("True")).check(matches(withText("False")));
         }
     }
 }
-

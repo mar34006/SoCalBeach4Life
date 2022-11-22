@@ -50,7 +50,7 @@ import java.text.DecimalFormat;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class LeaveReviewTest {
+public class LeaveReviewTests {
 
     public static final String STRING_TO_BE_TYPED_REVIEW1 = "ceuhpowjidnjhru$3ugg2";
     public static final String STRING_TO_BE_TYPED_REVIEW2 = "uhwqoijdio38jfhu38h";

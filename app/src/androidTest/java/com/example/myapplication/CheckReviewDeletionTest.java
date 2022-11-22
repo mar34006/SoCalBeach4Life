@@ -24,7 +24,13 @@ public class CheckReviewDeletionTest {
     public static final String STRING_TO_BE_DISPLAYED_REVIEW1 = "ceuhpowjidnjhru$3ugg2";
     public static final String STRING_TO_BE_DISPLAYED_RATING1 = "4 stars";
     public static final String STRING_TO_BE_DISPLAYED_USER1 = "Anonymous user:";
+
+    public static final String STRING_TO_BE_DISPLAYED_REVIEW2 = "uhwqoijdio38jfhu38h";
+    public static final String STRING_TO_BE_DISPLAYED_RATING2 = "3 stars";
+    public static final String STRING_TO_BE_DISPLAYED_USER2 = "m@r.com";
+
     Boolean pass1 = false;
+    Boolean pass2 = false;
 
     static Intent read_intent;
     static {
@@ -44,8 +50,9 @@ public class CheckReviewDeletionTest {
         });
         return a[0];
     }
+
     @Test
-    public void ReadAnonymousReview() {
+    public void ReadReview() {
 
         TextView name_view = getCurrentActivity().findViewById(R.id.name);
         String name = name_view.getText().toString();
@@ -80,6 +87,46 @@ public class CheckReviewDeletionTest {
         // If pass1 is True, then the review still exists in the database.
         // Thus, the test should fail
         if(pass1){
+            onView(withText("True")).check(matches(withText("False")));
+        }
+    }
+
+    @Test
+    public void ReadAnonymousReview() {
+
+        TextView name_view = getCurrentActivity().findViewById(R.id.name);
+        String name = name_view.getText().toString();
+        while(name.equals("")){
+            name_view = getCurrentActivity().findViewById(R.id.name);
+            name = name_view.getText().toString();
+        }
+
+        RelativeLayout container = getCurrentActivity().findViewById(R.id.container);
+        Integer i = 1;
+        Integer size = container.getChildCount();
+        while(i < size){
+
+            final TextView user_view = (TextView) container.getChildAt(i);
+            String username = user_view.getText().toString();
+            i += 1;
+
+            final TextView rating_view = (TextView) container.getChildAt(i);
+            String rating = rating_view.getText().toString();
+            i += 1;
+
+            final TextView review_view = (TextView) container.getChildAt(i);
+            String review = review_view.getText().toString();
+            i += 1;
+
+            if(username.equals(STRING_TO_BE_DISPLAYED_USER2) && rating.equals(STRING_TO_BE_DISPLAYED_RATING2) && review.equals(STRING_TO_BE_DISPLAYED_REVIEW2)){
+                pass2 = true;
+                break;
+            }
+        }
+
+        // If pass1 is True, then the review still exists in the database.
+        // Thus, the test should fail
+        if(pass2){
             onView(withText("True")).check(matches(withText("False")));
         }
     }

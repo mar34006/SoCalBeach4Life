@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
 
@@ -35,6 +37,9 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
 
     FirebaseDatabase root;
     DatabaseReference reference;
+
+    FirebaseStorage storage;
+    StorageReference storageRef;
 
     String user;
     String beach_name;
@@ -88,6 +93,9 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
                                      String text_review = get_review.child("Review").getValue().toString();
                                      String anonymous = get_review.child("Anonymous").getValue().toString();
 
+                                     String image = "";
+                                     if(get_review.child("Image URL").exists()) { image = get_review.child("Image URL").getValue().toString();}
+
                                      TextView ratingText = new TextView(context);
                                      ratingText.setText(rating + " stars");
                                      ratingText.setTextSize(20);
@@ -96,7 +104,8 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
                                      i += 3;
 
                                      TextView reviewText = new TextView(context);
-                                     reviewText.setText(text_review);
+                                     if(text_review.equals("")){ text_review = "None"; }
+                                     reviewText.setText("Review: " + text_review);
                                      reviewText.setTextSize(20);
                                      reviewText.setPadding(0, (i * 30), 0, 0);
                                      containerLayout.addView(reviewText);
@@ -108,6 +117,16 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
                                      anonymousText.setTextSize(20);
                                      anonymousText.setPadding(0, (i * 30), 0, 0);
                                      containerLayout.addView(anonymousText);
+
+                                     i += 3;
+
+                                     TextView imageText = new TextView(context);
+                                     if(image.equals("")){ image = "False"; }
+                                     else{ image = "True"; }
+                                     imageText.setText("Image uploaded: " + image);
+                                     imageText.setTextSize(20);
+                                     imageText.setPadding(0, (i * 30), 0, 0);
+                                     containerLayout.addView(imageText);
 
                                      i += 3;
 
@@ -158,6 +177,14 @@ public class DeleteReviewActivity extends AppCompatActivity implements AdapterVi
                 if(delete_reviews.size() != 0) {
                     String text = String.valueOf(spinner.getSelectedItem());
                     DataSnapshot key = review_keys.get(text);
+
+                    String image_url = key.child("Image URL").getValue().toString();
+                    if(!image_url.equals("")) {
+                        storage = FirebaseStorage.getInstance();
+                        storageRef = storage.getReferenceFromUrl(image_url);
+                        storageRef.delete();
+                    }
+
                     key.getRef().removeValue();
                     View backView = findViewById(R.id.back);
                     onClickBack(backView);

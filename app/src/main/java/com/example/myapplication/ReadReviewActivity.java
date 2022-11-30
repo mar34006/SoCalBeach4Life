@@ -155,4 +155,12 @@ public class ReadReviewActivity extends AppCompatActivity {
         startActivity(intent);
         this.finish();
     }
+
+    public void onClickViewGallery(View view){
+        Intent intent = new Intent(this, ViewGalleryActivity.class);
+        intent.putExtra("beach_name", beach_name);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        this.finish();
+    }
 }

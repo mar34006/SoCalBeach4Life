@@ -10,11 +10,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop= "70dp"
-        android:textSize = "40dp"
+        android:layout_marginTop= "55dp"
+        android:textSize = "35dp"
         android:textStyle="bold"
         android:fontFamily="sans-serif-black"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:id="@+id/rating_desc"
@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:textSize = "17dp"
         android:text = "How would you rate the beach out of 1-5?"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:fontFamily="sans-serif-black"
         android:layout_below="@+id/name"/>
@@ -93,6 +93,35 @@
         tools:layout_editor_absoluteY="343dp"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:id="@+id/image_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize = "17dp"
+        android:text = "Upload an image? (Optional)"
+        android:layout_marginTop="40dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:layout_below="@+id/inputText"/>
+
+    <Button
+        android:id="@+id/upload_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/plus"
+        android:layout_alignLeft="@+id/minus"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:text="Upload Image"
+        android:layout_below= "@+id/image_desc"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:backgroundTint="#0ED6B9"
+        android:onClick="onClickImage" />
+
 
     <Button
         android:id="@+id/leave_rev"
@@ -115,7 +144,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textSize = "17dp"
-        android:layout_below= "@+id/inputText"
+        android:layout_below= "@+id/upload_image"
         android:text = "Leave an anonymous review?"
         android:layout_marginTop="20dp"
         android:textStyle="bold"

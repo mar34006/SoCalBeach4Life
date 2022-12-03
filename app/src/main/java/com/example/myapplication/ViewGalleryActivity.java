@@ -38,24 +38,9 @@ public class ViewGalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_gallery);
 
-        // we will get the default FirebaseDatabase instance
-        FirebaseDatabase firebaseDatabase
-                = FirebaseDatabase.getInstance();
-
-        // we will get a DatabaseReference for the database
-        // root node
-        DatabaseReference databaseReference
-                = firebaseDatabase.getReference();
-
-        // Here "image" is the child node value we are
-        // getting child node data in the getImage variable
-        DatabaseReference getImage
-                = databaseReference.child("beaches").child(beach_name).child("reviews");
-
-        // Adding listener for a single change
-        // in the data at this location.
-        // this listener will triggered once
-        // with the value of the data at the location
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference();
+        DatabaseReference getImage = databaseReference.child("beaches").child(beach_name).child("reviews");
 
         LinearLayout layout = findViewById(R.id.layout);
 
@@ -99,28 +84,18 @@ public class ViewGalleryActivity extends AppCompatActivity {
                         }
                     }
 
-                    // this will called when any problem
-                    // occurs in getting data
                     @Override
                     public void onCancelled(
                             @NonNull DatabaseError databaseError)
                     {
-                        // we are showing that error message in
-                        // toast
-                        Toast
-                                .makeText(ViewGalleryActivity.this,
-                                        "Error Loading Image",
-                                        Toast.LENGTH_SHORT)
-                                .show();
+                        Toast.makeText(ViewGalleryActivity.this, "Error Loading Image", Toast.LENGTH_SHORT).show();
                     }
                 });
 
         DatabaseReference change = getImage.push();
         change.setValue("Change");
         change.removeValue();
-
-
-
+        
     }
 
     public void onClickBack(View view){

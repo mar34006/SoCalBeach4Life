@@ -1,3 +1,7 @@
+# Improvements since Project 2.4
+
+Users are now able to upload images with their reviews. When they delete their reviews, the images they uploaded are deleted too. Other users can view uploaded images for a particular beach in an 'Image Gallery' activity.
+
 # Running the App
 
 Simply import the project and run the app in an emulator.
